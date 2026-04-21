@@ -1,0 +1,1 @@
+Static site for psychic-test.com — auto-deployed.
