@@ -1,0 +1,20 @@
+<?php get_header(); ?>
+<article class="section" style="max-width:800px;">
+<div class="entry-header">
+<h1><?php the_title(); ?></h1>
+<div class="entry-meta">
+<span><?php ptc_posted_on(); ?></span>
+<span><?php ptc_posted_by(); ?></span>
+<span><?php ptc_reading_time(); ?></span>
+</div>
+</div>
+<?php if ( has_post_thumbnail() ) : ?>
+<div style="margin-bottom:2rem;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-md);">
+<?php the_post_thumbnail( 'large', array( 'style' => 'width:100%;height:auto;display:block;' ) ); ?>
+</div>
+<?php endif; ?>
+<div class="entry-content">
+<?php the_content(); ?>
+</div>
+</article>
+<?php get_footer(); ?>

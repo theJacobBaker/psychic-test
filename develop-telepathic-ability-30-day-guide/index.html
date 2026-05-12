@@ -1,13 +1,109 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html lang="en-US">
-
 <head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>How to Develop Your Telepathic Ability: A Practical 30-Day Guide &mdash; Inner Compass</title>
+<meta name="description" content="Telepathy - the ability to send or receive thoughts between minds without physical communication - is one of the most commonly reported psychic abilities. Most people who discover they have"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f0f4f8;--bg-soft:#e4ecf4;--bg-card:#f8fafc;--ink:#1a1a1a;--ink-2:#3a3a3a;--ink-3:#6b6b6b;--ink-4:#9aa3af;--line:#d6dfe8;--line-2:#bcc9d8;--accent:#4a6fa5;--accent-deep:#1a2842;--green:#4a7a52;--serif:"Fraunces",Georgia,serif;--sans:"Inter",-apple-system,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.65}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
 
-<meta charset="UTF-8">
+.container{max-width:920px;margin:0 auto;padding:0 24px}
+.narrow{max-width:680px;margin:0 auto;padding:0 24px}
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+/* Header — shared chrome */
+.header{padding:24px 0;border-bottom:1px solid var(--line);background:rgba(240,244,248,.9);backdrop-filter:blur(10px);position:sticky;top:0;z-index:10}
+.header-inner{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.logo{display:flex;gap:10px;align-items:center;font-family:var(--serif);font-size:20px;font-weight:500;letter-spacing:-.01em}
+.logo-mark{width:26px;height:26px;border-radius:50%;background:conic-gradient(from 180deg,#1a2842,#4a6fa5,#b8c8e0,#1a2842);position:relative;flex:0 0 auto}
+.logo-mark::after{content:"";position:absolute;inset:5px;border-radius:50%;background:var(--bg)}
+.logo-mark::before{content:"";position:absolute;top:3px;left:50%;width:2px;height:20px;background:var(--ink);transform:translateX(-50%);border-radius:2px}
+.header-nav{display:flex;gap:24px;font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase}
+.header-nav a{transition:color .15s}
+.header-nav a:hover{color:var(--ink)}
 
+/* Back chip */
+.back-row{padding:32px 0 0}
+.back-link{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;padding:6px 0;transition:color .15s,gap .15s}
+.back-link:hover{color:var(--ink);gap:12px}
+
+/* Article header */
+.entry{padding:32px 0 24px}
+.entry-eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);padding:6px 14px;background:var(--bg-card);border:1px solid var(--line);border-radius:999px;margin-bottom:24px}
+.entry-eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
+.entry-title{font-family:var(--serif);font-weight:400;font-size:clamp(36px,5vw,56px);line-height:1.04;letter-spacing:-.022em;margin:0 0 24px;color:var(--ink)}
+.entry-title em{font-style:italic;font-weight:300;color:var(--accent-deep)}
+.entry-meta{display:flex;gap:14px;align-items:center;font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:36px;flex-wrap:wrap}
+.entry-meta .sep{width:3px;height:3px;border-radius:50%;background:var(--line-2);flex:0 0 auto}
+.entry-meta strong{color:var(--ink);font-weight:500}
+
+/* Hero image */
+.hero{margin:0 0 48px}
+.hero img{width:100%;height:auto;border-radius:18px;border:1px solid var(--line)}
+
+/* Body content */
+.content{font-family:var(--sans);font-size:17px;line-height:1.75;color:var(--ink-2)}
+.content > *:first-child{margin-top:0}
+.content p{margin:0 0 1.25em}
+.content p:first-of-type::first-letter{font-family:var(--serif);font-weight:400;font-size:3.6em;float:left;line-height:.9;padding:6px 12px 0 0;color:var(--accent-deep)}
+.content h2{font-family:var(--serif);font-weight:500;font-size:clamp(24px,3vw,30px);line-height:1.2;letter-spacing:-.015em;color:var(--ink);margin:2.2em 0 .6em}
+.content h3{font-family:var(--serif);font-weight:500;font-size:22px;line-height:1.25;letter-spacing:-.01em;color:var(--ink);margin:1.8em 0 .5em}
+.content h4{font-family:var(--sans);font-weight:600;font-size:15px;letter-spacing:.02em;color:var(--ink);margin:1.6em 0 .4em;text-transform:uppercase}
+.content a{color:var(--accent-deep);text-decoration:underline;text-decoration-color:var(--line-2);text-underline-offset:3px;transition:text-decoration-color .15s}
+.content a:hover{text-decoration-color:var(--accent-deep)}
+.content strong{color:var(--ink);font-weight:600}
+.content em{font-style:italic}
+.content ul,.content ol{padding-left:1.4em;margin:0 0 1.25em}
+.content li{margin:0 0 .5em}
+.content li::marker{color:var(--ink-4)}
+.content blockquote{border-left:2px solid var(--accent-deep);margin:1.8em 0;padding:.4em 0 .4em 1.2em;font-family:var(--serif);font-style:italic;font-size:20px;line-height:1.5;color:var(--ink)}
+.content blockquote p{margin:0}
+.content figure{margin:2em 0}
+.content figure img,.content > img,.content p > img{width:100%;height:auto;border-radius:14px;border:1px solid var(--line)}
+.content figcaption{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-top:10px;text-align:center}
+.content hr{border:0;border-top:1px solid var(--line);margin:2.4em 0}
+.content code{font-family:var(--mono);font-size:.92em;background:var(--bg-soft);padding:2px 6px;border-radius:4px;border:1px solid var(--line)}
+.content pre{background:var(--bg-card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;overflow:auto;font-family:var(--mono);font-size:13px;line-height:1.55;margin:1.6em 0}
+.content table{width:100%;border-collapse:collapse;margin:1.6em 0;font-size:15px}
+.content th,.content td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left}
+.content th{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:500}
+
+/* Footer CTA */
+.entry-foot{margin:64px 0 0;padding:32px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase}
+.entry-foot a{color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:2px;transition:opacity .15s}
+.entry-foot a:hover{opacity:.7}
+
+.continue{margin:64px 0 0;padding:40px;background:var(--ink);color:var(--bg);border-radius:24px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.continue-text{max-width:460px}
+.continue-text h4{font-family:var(--serif);font-size:26px;font-weight:500;margin:0 0 6px;letter-spacing:-.015em}
+.continue-text p{margin:0;opacity:.75;font-size:14px}
+.continue .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 24px;font-size:14px;font-weight:600;border-radius:999px;background:var(--bg);color:var(--ink);transition:all .15s}
+.continue .btn:hover{transform:translateY(-1px);box-shadow:0 12px 28px -8px rgba(255,255,255,.25)}
+
+/* Related */
+.related{padding:64px 0 96px}
+.related-title{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin:0 0 20px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.related-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.related-card{display:block;padding:24px;background:var(--bg-card);border:1px solid var(--line);border-radius:16px;transition:all .15s}
+.related-card:hover{transform:translateY(-2px);border-color:var(--line-2);box-shadow:0 10px 28px -10px rgba(26,40,66,.12)}
+.related-card .meta{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px}
+.related-card .title{font-family:var(--serif);font-size:18px;font-weight:500;line-height:1.25;letter-spacing:-.01em;color:var(--ink);margin:0}
+
+.footer{padding:48px 0;border-top:1px solid var(--line);font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+
+@media (max-width:720px){
+  .related-grid{grid-template-columns:1fr}
+  .content p:first-of-type::first-letter{font-size:3em}
+  .header-nav{gap:14px;font-size:10px}
+}
+</style>
 <title>How to Develop Your Telepathic Ability: A Practical 30-Day Guide &#8211; Psychic Test</title>
 <meta name='robots' content='max-image-preview:large' />
 <link rel='dns-prefetch' href='//fonts.googleapis.com' />
@@ -167,66 +263,42 @@ h1 em{font-style:italic;font-weight:300;color:var(--accent-deep)}
 }
 		</style>
 		</head>
+<body class="wp-singular post-template-default single single-post postid-24 single-format-standard wp-theme-psychic-testcom-theme field-note">
 
-<body class="wp-singular post-template-default single single-post postid-24 single-format-standard wp-theme-psychic-testcom-theme">
-
-<div class="ptc-mobile-overlay" id="ptcMobileOverlay" onclick="ptcCloseMobile()"></div>
-
-<nav class="mobile-nav" id="ptcMobileNav">
-
-<ul id="menu-main-menu" class="nav-menu"><li id="menu-item-59" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-59"><a href="https://psychic-test.com/">Home</a></li>
-<li id="menu-item-60" class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-60"><a href="https://psychic-test.com/blog/">Blog</a></li>
-<li id="menu-item-61" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-61"><a href="https://psychic-test.com/about/">About</a></li>
-</ul></nav>
-
-<header class="site-nav" id="ptcHeader">
-
-<div class="container">
-
-<a href="https://psychic-test.com/" class="nav-brand">
-
-Psychic Test</a>
-
-<div class="nav-desktop">
-
-<ul class="nav-menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-59"><a href="https://psychic-test.com/">Home</a></li>
-<li class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-60"><a href="https://psychic-test.com/blog/">Blog</a></li>
-<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-61"><a href="https://psychic-test.com/about/">About</a></li>
-</ul></div>
-
-<button class="mobile-menu-btn" onclick="ptcToggleMobile()" aria-label="Toggle menu">&#9776;</button>
-
-</div>
-
+<header class="header">
+  <div class="container header-inner">
+    <a class="logo" href="https://psychic-test.com/">
+      <span class="logo-mark"></span>Inner Compass
+    </a>
+    <nav class="header-nav" aria-label="Primary">
+      <a href="https://psychic-test.com/blog/">Field Notes</a>
+      <a href="https://psychic-test.com/">Take the test</a>
+      <a href="https://psychic-test.com/about/">About</a>
+    </nav>
+  </div>
 </header>
 
-<main>
 
-<article class="section" style="max-width:800px;">
-
-<div class="entry-header">
-
-<h1>How to Develop Your Telepathic Ability: A Practical 30-Day Guide</h1>
-
-<div class="entry-meta">
-
-<span><time class="entry-date" datetime="2026-03-12T13:48:01+00:00">March 12, 2026</time></span>
-
-<span><span class="byline">By <a href="https://psychic-test.com/author/"></a></span></span>
-
-<span><span class="reading-time">4 min read</span></span>
-
+<div class="narrow back-row">
+  <a class="back-link" href="https://psychic-test.com/blog/">&larr; Back to Field Notes</a>
 </div>
 
-</div>
+<article class="entry narrow">
+  <span class="entry-eyebrow"><span class="dot"></span>Field Notes</span>
+  <h1 class="entry-title">How to Develop Your Telepathic Ability: A Practical 30-Day Guide</h1>
+  <div class="entry-meta">
+    <span>March 12, 2026</span>
+    <span class="sep"></span>
+    <span>by <strong>Maya Sharma</strong></span>
+    <span class="sep"></span>
+    <span>5 min read</span>
+  </div>
 
-<div style="margin-bottom:2rem;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-md);">
-
-<img width="1024" height="1024" src="https://psychic-test.com/wp-content/uploads/2026/04/blog_develop-telepathic-ability-30-day-guide.png" class="attachment-large size-large wp-post-image" alt="" style="width:100%;height:auto;display:block;" decoding="async" fetchpriority="high" /></div>
-
-<div class="entry-content">
-
-<figure class="wp-block-image size-large"><img decoding="async" width="1024" height="1024" src="/wp-content/uploads/2026/04/blog_develop-telepathic-ability-30-day-guide.png" alt="How to Develop Your Telepathic Ability: A Practical 30-Day Guide" class="wp-image-65" loading="lazy" /></figure>
+    <div class="hero">
+    <img width="1024" height="1024" src="https://psychic-test.com/wp-content/uploads/2026/04/blog_develop-telepathic-ability-30-day-guide.png" class="attachment-large size-large wp-post-image" alt="How to Develop Your Telepathic Ability: A Practical 30-Day Guide" decoding="async" fetchpriority="high" />  </div>
+  
+  <div class="content">
+    <figure class="wp-block-image size-large"><img decoding="async" width="1024" height="1024" src="/wp-content/uploads/2026/04/blog_develop-telepathic-ability-30-day-guide.png" alt="How to Develop Your Telepathic Ability: A Practical 30-Day Guide" class="wp-image-65" loading="lazy" /></figure>
 <p>Telepathy &#8211; the ability to send or receive thoughts between minds without physical communication &#8211; is one of the most commonly reported psychic abilities. Most people who discover they have telepathic sensitivity describe it as always having been there: knowing what someone was about to say, sensing when a friend needed them, picking up on unspoken tensions in a room.</p>
 <p>The difference between accidental telepathy and reliable telepathic ability is practice. Like any skill, telepathy strengthens with intentional exercise. This 30-day guide provides a structured development program that takes you from casual sensitivity to measurable improvement.</p>
 <h2>Before You Start: Establish Your Baseline</h2>
@@ -266,71 +338,41 @@ Psychic Test</a>
 <h2>Beyond 30 Days</h2>
 <p>Telepathic development doesn&#8217;t stop at Day 30. Like physical fitness, <a href="/types-of-psychic-abilities/">psychic ability</a> requires ongoing practice to maintain and grow. Continue the exercises that produced the strongest results. Increase complexity gradually. Find a regular practice partner. And retest periodically to track your trajectory.</p>
 <p>Your telepathic ability was always there. All you did was give it attention, structure, and permission to grow. The question now isn&#8217;t whether you have it &#8211; it&#8217;s how far you&#8217;ll take it.</p>
-</div>
-
-</article>
-
-</main>
-
-<footer id="colophon" class="site-footer" role="contentinfo"
-
-  style="background:var(--color-primary);color:#fff;text-align:center;padding:2.5rem 2rem 1.5rem">
-
-  <div style="max-width:800px;margin:0 auto">
-
-    <h3 style="font-family:var(--font-heading);color:var(--color-secondary,#D4A843);font-size:1.4rem;margin:0 0 .4rem">Psychic Test</h3>
-
-    <p style="opacity:.65;font-size:.9rem;margin:0 0 1.5rem">Discover your psychic abilities — find out where your gifts truly lie.</p>
-
-    <nav class="footer-inline-nav">
-
-      <ul class="fin-list">
-
-        <li><a href="https://psychic-test.com/">Home</a></li>
-
-        <li><a href="https://psychic-test.com/how-it-works/">How It Works</a></li>
-
-        <li><a href="https://psychic-test.com/blog/">Blog</a></li>
-
-        <li><a href="https://psychic-test.com/about/">About Us</a></li>
-
-        <li><a href="https://psychic-test.com/faq/">FAQ</a></li>
-
-        <li><a href="https://psychic-test.com/contact/">Contact Us</a></li>
-
-        <li><a href="https://psychic-test.com/psychic-test/">Psychic Test</a></li>
-
-        <li><a href="https://psychic-test.com/intuition-quiz/">Intuition Quiz</a></li>
-
-        <li><a href="https://psychic-test.com/privacy-policy/">Privacy Policy</a></li>
-
-        <li><a href="https://psychic-test.com/terms/">Terms of Service</a></li>
-
-        <li><a href="https://psychic-test.com/disclaimer/">Disclaimer</a></li>
-
-      </ul>
-
-    </nav>
-
-    <div style="width:60px;height:2px;background:var(--color-secondary,#D4A843);margin:1.5rem auto;opacity:.5"></div>
-
-    <small style="opacity:.4;font-size:.75rem">&copy; 2026 Psychic Test. All rights reserved.</small>
-
   </div>
 
+  <div class="entry-foot">
+    <span>End of note</span>
+    <a href="https://psychic-test.com/blog/">All Field Notes &rarr;</a>
+  </div>
+
+  <div class="continue">
+    <div class="continue-text">
+      <h4>Where would <em>you</em> land?</h4>
+      <p>The free Inner Compass test takes about three minutes. Anonymous, no sign-up.</p>
+    </div>
+    <a class="btn" href="https://psychic-test.com/">Take the test &rarr;</a>
+  </div>
+</article>
+
+<section class="related narrow">
+  <h3 class="related-title">More Field Notes</h3>
+  <div class="related-grid">
+        <a class="related-card" href="https://psychic-test.com/zener-cards-explained-original-esp-test/">
+      <div class="meta">Mar 12, 2026 &middot; Dr. Evelyn Moss</div>
+      <h4 class="title">Zener Cards Explained: The Original ESP Test and How It Works</h4>
+    </a>
+        <a class="related-card" href="https://psychic-test.com/how-to-improve-your-psychic-test-scores-with-practice/">
+      <div class="meta">Apr 21, 2026 &middot; Dr. Evelyn Moss</div>
+      <h4 class="title">How to Improve Your Psychic Test Scores With Regular Practice</h4>
+    </a>
+      </div>
+</section>
+
+
+<footer class="footer container">
+  <span>&copy; 2026 Inner Compass &middot; A test by Clairo</span>
+  <span>Anonymous &middot; No sign-up &middot; Your answers aren&rsquo;t stored</span>
 </footer>
-
-<style>
-
-.fin-list{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;justify-content:center;gap:.3rem .8rem}
-
-.fin-list li a{color:rgba(255,255,255,.7);text-decoration:none;font-size:.85rem;transition:color .2s;padding:.2rem 0}
-
-.fin-list li a:hover{color:var(--color-secondary,#D4A843)}
-
-@media(max-width:600px){.fin-list{flex-direction:column;gap:.4rem}}
-
-</style>
 
 <script type="speculationrules">
 {"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/psychic-testcom-theme/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
@@ -345,6 +387,4 @@ const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(
 //# sourceURL=https://psychic-test.com/wp-includes/js/wp-emoji-loader.min.js
 </script>
 </body>
-
 </html>
-
