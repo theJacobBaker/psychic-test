@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Field Notes &mdash; Inner Compass</title>
+<meta name="description" content="Field Notes &mdash; essays on intuition, ESP, and what the quiet senses actually tell us."/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f0f4f8;--bg-soft:#e4ecf4;--bg-card:#f8fafc;--ink:#1a1a1a;--ink-2:#3a3a3a;--ink-3:#6b6b6b;--ink-4:#9aa3af;--line:#d6dfe8;--line-2:#bcc9d8;--accent:#4a6fa5;--accent-deep:#1a2842;--green:#4a7a52;--serif:"Fraunces",Georgia,serif;--sans:"Inter",-apple-system,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.55}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+.container{max-width:920px;margin:0 auto;padding:0 24px}
+
+/* Header — same chrome as the landing */
+.header{padding:24px 0;border-bottom:1px solid var(--line);background:rgba(240,244,248,.9);backdrop-filter:blur(10px);position:sticky;top:0;z-index:10}
+.header-inner{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.logo{display:flex;gap:10px;align-items:center;font-family:var(--serif);font-size:20px;font-weight:500;letter-spacing:-.01em}
+.logo-mark{width:26px;height:26px;border-radius:50%;background:conic-gradient(from 180deg,#1a2842,#4a6fa5,#b8c8e0,#1a2842);position:relative;flex:0 0 auto}
+.logo-mark::after{content:"";position:absolute;inset:5px;border-radius:50%;background:var(--bg)}
+.logo-mark::before{content:"";position:absolute;top:3px;left:50%;width:2px;height:20px;background:var(--ink);transform:translateX(-50%);border-radius:2px}
+.header-nav{display:flex;gap:24px;font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase}
+.header-nav a{transition:color .15s}
+.header-nav a:hover{color:var(--ink)}
+
+/* Intro */
+.intro{padding:72px 0 36px;text-align:left;max-width:680px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);padding:6px 14px;background:var(--bg-card);border:1px solid var(--line);border-radius:999px}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
+.intro h1{font-family:var(--serif);font-weight:400;font-size:clamp(40px,5.5vw,60px);line-height:1.04;letter-spacing:-.022em;margin:20px 0 18px;color:var(--ink)}
+.intro h1 em{font-style:italic;font-weight:300;color:var(--accent-deep)}
+.intro .lede{font-size:18px;color:var(--ink-2);margin:0;max-width:560px}
+
+/* Notes list */
+.notes{padding:56px 0 96px}
+.notes-meta{display:flex;justify-content:space-between;align-items:center;padding-bottom:20px;margin-bottom:8px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase}
+
+.note{display:grid;grid-template-columns:1fr 220px;gap:36px;padding:36px 0;border-bottom:1px solid var(--line);align-items:start}
+.note:last-of-type{border-bottom:0}
+.note-body{min-width:0}
+.note-meta{display:flex;gap:14px;align-items:center;font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
+.note-meta .sep{width:3px;height:3px;border-radius:50%;background:var(--line-2)}
+.note-title{font-family:var(--serif);font-weight:400;font-size:clamp(24px,2.6vw,30px);line-height:1.15;letter-spacing:-.015em;margin:0 0 14px;color:var(--ink)}
+.note-title a{transition:color .15s}
+.note-title a:hover{color:var(--accent-deep)}
+.note-excerpt{color:var(--ink-2);font-size:16px;line-height:1.6;margin:0 0 18px;max-width:540px}
+.note-read{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--accent-deep);letter-spacing:.1em;text-transform:uppercase;padding:6px 0;border-bottom:1px solid var(--accent-deep);transition:gap .15s}
+.note-read:hover{gap:14px}
+
+.note-thumb{aspect-ratio:4/3;border-radius:14px;overflow:hidden;background:var(--bg-soft);border:1px solid var(--line);position:relative}
+.note-thumb img{width:100%;height:100%;object-fit:cover}
+.note-thumb-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 30% 30%,#fff,#b8c8e0 50%,#4a6fa5);opacity:.7}
+
+.pagination{display:flex;justify-content:center;gap:8px;margin-top:48px;font-family:var(--mono);font-size:12px;letter-spacing:.05em}
+.pagination .page-numbers{padding:8px 14px;border:1px solid var(--line);border-radius:999px;color:var(--ink-3);transition:all .15s;background:var(--bg-card)}
+.pagination .page-numbers:hover{border-color:var(--ink);color:var(--ink)}
+.pagination .page-numbers.current{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+.empty{padding:120px 0;text-align:center;color:var(--ink-3)}
+.empty h2{font-family:var(--serif);font-weight:400;font-size:32px;color:var(--ink);margin:0 0 12px}
+
+/* Continue-CTA at end */
+.continue{margin-top:64px;padding:40px;background:var(--ink);color:var(--bg);border-radius:24px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.continue-text{max-width:460px}
+.continue-text h4{font-family:var(--serif);font-size:26px;font-weight:500;margin:0 0 6px;letter-spacing:-.015em}
+.continue-text p{margin:0;opacity:.75;font-size:14px}
+.continue .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 24px;font-size:14px;font-weight:600;border-radius:999px;background:var(--bg);color:var(--ink);transition:all .15s}
+.continue .btn:hover{transform:translateY(-1px);box-shadow:0 12px 28px -8px rgba(255,255,255,.25)}
+
+.footer{padding:48px 0;border-top:1px solid var(--line);font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+
+@media (max-width:720px){
+  .note{grid-template-columns:1fr;gap:20px}
+  .note-thumb{order:-1;max-width:100%;aspect-ratio:16/9}
+  .intro{padding:48px 0 24px}
+  .notes{padding:32px 0 64px}
+  .header-nav{gap:14px;font-size:10px}
+}
+</style>
+<title>Maya Sharma &#8211; Psychic Test</title>
+<meta name='robots' content='max-image-preview:large' />
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel="alternate" type="application/rss+xml" title="Psychic Test &raquo; Posts by Maya Sharma Feed" href="https://psychic-test.com/author/maya-sharma/feed/" />
+<style id="wp-img-auto-sizes-contain-inline-css">
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<style id="wp-emoji-styles-inline-css">
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+/*# sourceURL=wp-emoji-styles-inline-css */
+</style>
+<style id="wp-block-library-inline-css">
+:root{--wp-block-synced-color:#7a00df;--wp-block-synced-color--rgb:122,0,223;--wp-bound-block-color:var(--wp-block-synced-color);--wp-editor-canvas-background:#ddd;--wp-admin-theme-color:#007cba;--wp-admin-theme-color--rgb:0,124,186;--wp-admin-theme-color-darker-10:#006ba1;--wp-admin-theme-color-darker-10--rgb:0,107,160.5;--wp-admin-theme-color-darker-20:#005a87;--wp-admin-theme-color-darker-20--rgb:0,90,135;--wp-admin-border-width-focus:2px}@media (min-resolution:192dpi){:root{--wp-admin-border-width-focus:1.5px}}.wp-element-button{cursor:pointer}:root .has-very-light-gray-background-color{background-color:#eee}:root .has-very-dark-gray-background-color{background-color:#313131}:root .has-very-light-gray-color{color:#eee}:root .has-very-dark-gray-color{color:#313131}:root .has-vivid-green-cyan-to-vivid-cyan-blue-gradient-background{background:linear-gradient(135deg,#00d084,#0693e3)}:root .has-purple-crush-gradient-background{background:linear-gradient(135deg,#34e2e4,#4721fb 50%,#ab1dfe)}:root .has-hazy-dawn-gradient-background{background:linear-gradient(135deg,#faaca8,#dad0ec)}:root .has-subdued-olive-gradient-background{background:linear-gradient(135deg,#fafae1,#67a671)}:root .has-atomic-cream-gradient-background{background:linear-gradient(135deg,#fdd79a,#004a59)}:root .has-nightshade-gradient-background{background:linear-gradient(135deg,#330968,#31cdcf)}:root .has-midnight-gradient-background{background:linear-gradient(135deg,#020381,#2874fc)}:root{--wp--preset--font-size--normal:16px;--wp--preset--font-size--huge:42px}.has-regular-font-size{font-size:1em}.has-larger-font-size{font-size:2.625em}.has-normal-font-size{font-size:var(--wp--preset--font-size--normal)}.has-huge-font-size{font-size:var(--wp--preset--font-size--huge)}:root .has-text-align-center{text-align:center}:root .has-text-align-left{text-align:left}:root .has-text-align-right{text-align:right}.has-fit-text{white-space:nowrap!important}#end-resizable-editor-section{display:none}.aligncenter{clear:both}.items-justified-left{justify-content:flex-start}.items-justified-center{justify-content:center}.items-justified-right{justify-content:flex-end}.items-justified-space-between{justify-content:space-between}.screen-reader-text{word-wrap:normal!important;border:0;clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px}.screen-reader-text:focus{background-color:#ddd;clip-path:none;color:#444;display:block;font-size:1em;height:auto;left:5px;line-height:normal;padding:15px 23px 14px;text-decoration:none;top:5px;width:auto;z-index:100000}html :where(.has-border-color){border-style:solid}html :where([style*=border-color]){border-style:solid}html :where([style*=border-top-color]){border-top-style:solid}html :where([style*=border-right-color]){border-right-style:solid}html :where([style*=border-bottom-color]){border-bottom-style:solid}html :where([style*=border-left-color]){border-left-style:solid}html :where([style*=border-width]){border-style:solid}html :where([style*=border-top-width]){border-top-style:solid}html :where([style*=border-right-width]){border-right-style:solid}html :where([style*=border-bottom-width]){border-bottom-style:solid}html :where([style*=border-left-width]){border-left-style:solid}html :where(img[class*=wp-image-]){height:auto;max-width:100%}:where(figure){margin:0 0 1em}html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:var(--wp-admin--admin-bar--height,0px)}@media screen and (max-width:600px){html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:0px}}
+
+/*# sourceURL=/wp-includes/css/dist/block-library/common.min.css */
+</style>
+<style id="classic-theme-styles-inline-css">
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+/*# sourceURL=/wp-includes/css/classic-themes.min.css */
+</style>
+
+<style id="global-styles-inline-css">
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}:where(body) { margin: 0; }:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}body{padding-top: 0px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;}:root :where(.wp-element-button, .wp-block-button__link){background-color: #32373c;border-width: 0;color: #fff;font-family: inherit;font-size: inherit;font-style: inherit;font-weight: inherit;letter-spacing: inherit;line-height: inherit;padding-top: calc(0.667em + 2px);padding-right: calc(1.333em + 2px);padding-bottom: calc(0.667em + 2px);padding-left: calc(1.333em + 2px);text-decoration: none;text-transform: inherit;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+
+<link rel='stylesheet' id='ptc-fonts-css' href='https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&#038;family=DM+Sans:wght@300;400;500;600;700&#038;display=swap' media='all' />
+<link rel='stylesheet' id='ptc-style-css' href='https://psychic-test.com/wp-content/themes/psychic-testcom-theme/style.css?ver=2.0.0' media='all' />
+<link rel="https://api.w.org/" href="https://psychic-test.com/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="https://psychic-test.com/wp-json/wp/v2/users/4" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://psychic-test.com/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 7.0" />
+<link rel="icon" href="https://psychic-test.com/wp-content/uploads/2026/03/site_30_favicon.png" sizes="32x32" />
+<link rel="icon" href="https://psychic-test.com/wp-content/uploads/2026/03/site_30_favicon.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://psychic-test.com/wp-content/uploads/2026/03/site_30_favicon.png" />
+<meta name="msapplication-TileImage" content="https://psychic-test.com/wp-content/uploads/2026/03/site_30_favicon.png" />
+<style id="wp-custom-css">
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root{--bg:#f0f4f8;--bg-soft:#e4ecf4;--bg-card:#f8fafc;--ink:#1a1a1a;--ink-2:#3a3a3a;--ink-3:#6b6b6b;--ink-4:#9aa3af;--line:#d6dfe8;--line-2:#bcc9d8;--accent:#4a6fa5;--accent-deep:#1a2842;--green:#4a7a52;--serif:"Fraunces",Georgia,serif;--sans:"Inter",-apple-system,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.55}
+a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
+.container{max-width:920px;margin:0 auto;padding:0 24px}
+.header{padding:24px 0;border-bottom:1px solid var(--line);background:rgba(240,244,248,.9);backdrop-filter:blur(10px);position:sticky;top:0;z-index:10}
+.header-inner{display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;gap:10px;align-items:center;font-family:var(--serif);font-size:20px;font-weight:500;letter-spacing:-.01em}
+.logo-mark{width:26px;height:26px;border-radius:50%;background:conic-gradient(from 180deg,#1a2842,#4a6fa5,#b8c8e0,#1a2842);position:relative}
+.logo-mark::after{content:"";position:absolute;inset:5px;border-radius:50%;background:var(--bg)}
+.logo-mark::before{content:"";position:absolute;top:3px;left:50%;width:2px;height:20px;background:var(--ink);transform:translateX(-50%);border-radius:2px}
+.header-meta{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase}
+.progress-wrap{padding:16px 0;border-bottom:1px solid var(--line)}
+.progress-bar{height:3px;background:var(--line);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:var(--ink);transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.progress-label{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+
+.intro{padding:80px 0 96px;text-align:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);padding:6px 14px;background:var(--bg-card);border:1px solid var(--line);border-radius:999px}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(40px,6vw,68px);line-height:1.02;letter-spacing:-.025em;margin:20px 0 20px}
+h1 em{font-style:italic;font-weight:300;color:var(--accent-deep)}
+.lede{font-size:18px;color:var(--ink-2);max-width:560px;margin:0 auto 36px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:52px;padding:0 28px;font-size:15px;font-weight:600;border-radius:999px;transition:all .15s}
+.btn-primary{background:var(--ink);color:var(--bg)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 12px 28px -8px rgba(26,40,66,.35)}
+.btn-secondary{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line-2)}
+.btn-secondary:hover{box-shadow:inset 0 0 0 1px var(--ink)}
+.btn-ghost{color:var(--ink-3);padding:0 16px;height:44px}
+.intro-meta{display:flex;justify-content:center;gap:40px;margin-top:48px;font-size:13px;color:var(--ink-3);flex-wrap:wrap}
+.intro-meta strong{color:var(--ink);font-family:var(--serif);font-size:22px;font-weight:500;display:block;letter-spacing:-.01em}
+.intro-trust{margin-top:64px;padding-top:32px;border-top:1px solid var(--line);display:flex;justify-content:center;gap:32px;font-size:12px;color:var(--ink-3);flex-wrap:wrap}
+.intro-trust span{display:inline-flex;gap:6px;align-items:center}
+.intro-trust svg{width:14px;height:14px}
+
+/* Quiz */
+.quiz{padding:64px 0;min-height:70vh;display:flex;flex-direction:column;justify-content:center}
+.step-num{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:14px}
+.question{font-family:var(--serif);font-weight:400;font-size:clamp(28px,4vw,44px);line-height:1.1;letter-spacing:-.02em;margin:0 0 16px;max-width:720px}
+.question em{font-style:italic;color:var(--accent-deep)}
+.question-sub{color:var(--ink-3);font-size:16px;max-width:560px;margin-bottom:40px}
+.options{display:flex;flex-direction:column;gap:10px;max-width:640px}
+.option{display:flex;align-items:center;gap:16px;padding:20px 24px;background:var(--bg-card);border:1px solid var(--line);border-radius:14px;font-size:16px;text-align:left;transition:all .15s;width:100%}
+.option:hover{border-color:var(--ink);transform:translateX(4px)}
+.option.selected{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.option-letter{flex:0 0 auto;width:32px;height:32px;border-radius:50%;border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;font-weight:600;transition:all .15s}
+.option.selected .option-letter{background:var(--bg);color:var(--ink);border-color:var(--bg)}
+.option-label{flex:1}
+.nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:48px;padding-top:32px;border-top:1px solid var(--line);max-width:640px}
+
+/* Scale */
+.scale{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;max-width:640px;margin-top:12px}
+.scale-pt{aspect-ratio:1;border:1px solid var(--line-2);border-radius:50%;background:var(--bg-card);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:16px;color:var(--ink-3);transition:all .15s}
+.scale-pt:hover{border-color:var(--ink);color:var(--ink)}
+.scale-pt.selected{background:var(--ink);color:var(--bg);border-color:var(--ink);transform:scale(1.08)}
+.scale-labels{display:flex;justify-content:space-between;max-width:640px;font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.05em;text-transform:uppercase;margin-top:12px}
+
+/* Result */
+.result{padding:64px 0 96px;display:none}
+.result.show{display:block}
+.result-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-deep);margin-bottom:16px}
+.result-title{font-family:var(--serif);font-weight:400;font-size:clamp(40px,5.5vw,60px);line-height:1.05;letter-spacing:-.02em;margin:0 0 16px}
+.result-title em{font-style:italic;color:var(--accent-deep)}
+.result-sub{font-size:18px;color:var(--ink-3);max-width:560px;margin-bottom:48px}
+.archetype-card{background:var(--bg-card);border:1px solid var(--line);border-radius:24px;padding:48px;margin-bottom:32px}
+.archetype-header{display:flex;gap:24px;align-items:flex-start;margin-bottom:28px}
+.archetype-glyph{width:72px;height:72px;border-radius:50%;flex:0 0 auto;background:radial-gradient(circle at 30% 30%,#fff,#b8c8e0 40%,#4a6fa5 80%,#1a2842);box-shadow:inset 0 0 0 1px rgba(0,0,0,.1);position:relative}
+.archetype-name{font-family:var(--serif);font-size:32px;font-weight:500;letter-spacing:-.02em;margin:0 0 4px}
+.archetype-kicker{color:var(--ink-3);font-size:14px}
+.archetype-body{color:var(--ink-2);font-size:16px;line-height:1.6}
+.archetype-body p{margin:0 0 14px}
+.traits{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px;padding-top:32px;border-top:1px solid var(--line)}
+.trait-label{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+.trait-val{font-family:var(--serif);font-size:18px;font-weight:500}
+
+.recommend{margin-top:48px}
+.recommend h3{font-family:var(--serif);font-size:28px;font-weight:500;letter-spacing:-.015em;margin:0 0 20px}
+.recommend p{color:var(--ink-3);margin-bottom:24px}
+.rec-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.rec-card{background:var(--bg-card);border:1px solid var(--line);border-radius:16px;padding:24px;display:flex;gap:16px;align-items:center;cursor:pointer;transition:all .15s}
+.rec-card:hover{transform:translateY(-2px);border-color:var(--line-2);box-shadow:0 8px 24px -8px rgba(26,40,66,.12)}
+.rec-photo{width:64px;height:64px;border-radius:50%;background-size:cover;background-position:center;flex:0 0 auto}
+.rec-body{flex:1;min-width:0}
+.rec-name{font-family:var(--serif);font-size:18px;font-weight:500;display:flex;gap:4px;align-items:center}
+.rec-meta{font-size:12px;color:var(--ink-3);margin-top:2px}
+.rec-match{font-family:var(--mono);font-size:11px;color:var(--accent-deep);background:var(--bg-soft);padding:4px 8px;border-radius:999px;letter-spacing:.05em}
+
+.result-cta{margin-top:48px;padding:32px;background:var(--ink);color:var(--bg);border-radius:24px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.result-cta-text{max-width:420px}
+.result-cta-text h4{font-family:var(--serif);font-size:24px;font-weight:500;margin:0 0 6px;letter-spacing:-.015em}
+.result-cta-text p{margin:0;opacity:.75;font-size:14px}
+.result-cta .btn{background:var(--bg);color:var(--ink)}
+
+.footer{padding:48px 0;border-top:1px solid var(--line);font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-top:48px}
+
+/* Animations */
+.fade-in{animation:fadeIn .4s ease both}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+@media (max-width:700px){
+  .rec-grid,.traits{grid-template-columns:1fr}
+  .scale{grid-template-columns:repeat(7,1fr);gap:4px}
+  .archetype-card{padding:28px}
+  .archetype-header{flex-direction:column;gap:16px}
+}
+
+</style>
+</head>
+<body class="archive author author-maya-sharma author-4 wp-theme-psychic-testcom-theme field-notes">
+
+<header class="header">
+  <div class="container header-inner">
+    <a class="logo" href="https://psychic-test.com/">
+      <span class="logo-mark"></span>Inner Compass
+    </a>
+    <nav class="header-nav" aria-label="Primary">
+      <a href="https://psychic-test.com/">Take the test</a>
+      <a href="https://psychic-test.com/about/">About</a>
+      <a href="https://psychic-test.com/faq/">FAQ</a>
+    </nav>
+  </div>
+</header>
+
+<section class="intro container">
+  <span class="eyebrow"><span class="dot"></span>Field Notes</span>
+  <h1>Notes from a <em>quiet</em> practice.</h1>
+  <p class="lede">Essays on intuition, the senses we don&rsquo;t name, and what a careful reading actually feels like. Written between sessions, kept short.</p>
+</section>
+
+<section class="notes container">
+    <div class="notes-meta">
+    <span>2 notes</span>
+    <span>Page 1</span>  </div>
+
+    <article class="note">
+    <div class="note-body">
+      <div class="note-meta">
+        <span>Apr 21, 2026</span>
+        <span class="sep"></span>
+        <span>Maya Sharma</span>
+        <span class="sep"></span>
+        <span>3 min read</span>
+      </div>
+      <h2 class="note-title"><a href="https://psychic-test.com/how-to-test-your-psychic-abilities-at-home/">How to Test Your Psychic Abilities at Home: A Step-by-Step Guide</a></h2>
+      <p class="note-excerpt">You don&#039;t need a laboratory to test your psychic abilities. Some of the most well-known ESP experiments were originally designed for kitchen tables and living rooms - and with a little structure, you can run them yourself and&hellip;</p>
+      <a class="note-read" href="https://psychic-test.com/how-to-test-your-psychic-abilities-at-home/">Read the note &rarr;</a>
+    </div>
+    <a class="note-thumb" href="https://psychic-test.com/how-to-test-your-psychic-abilities-at-home/" aria-label="How to Test Your Psychic Abilities at Home: A Step-by-Step Guide">
+              <img width="768" height="768" src="https://psychic-test.com/wp-content/uploads/2026/04/blog_how-to-test-your-psychic-abilities-at-home.png" class="attachment-medium_large size-medium_large wp-post-image" alt="How to Test Your Psychic Abilities at Home: A Step-by-Step Guide" decoding="async" fetchpriority="high" />          </a>
+  </article>
+    <article class="note">
+    <div class="note-body">
+      <div class="note-meta">
+        <span>Mar 12, 2026</span>
+        <span class="sep"></span>
+        <span>Maya Sharma</span>
+        <span class="sep"></span>
+        <span>5 min read</span>
+      </div>
+      <h2 class="note-title"><a href="https://psychic-test.com/develop-telepathic-ability-30-day-guide/">How to Develop Your Telepathic Ability: A Practical 30-Day Guide</a></h2>
+      <p class="note-excerpt">Telepathy - the ability to send or receive thoughts between minds without physical communication - is one of the most commonly reported psychic abilities. Most people who discover they have telepathic sensitivity describe it as always having been&hellip;</p>
+      <a class="note-read" href="https://psychic-test.com/develop-telepathic-ability-30-day-guide/">Read the note &rarr;</a>
+    </div>
+    <a class="note-thumb" href="https://psychic-test.com/develop-telepathic-ability-30-day-guide/" aria-label="How to Develop Your Telepathic Ability: A Practical 30-Day Guide">
+              <img width="768" height="768" src="https://psychic-test.com/wp-content/uploads/2026/04/blog_develop-telepathic-ability-30-day-guide.png" class="attachment-medium_large size-medium_large wp-post-image" alt="How to Develop Your Telepathic Ability: A Practical 30-Day Guide" decoding="async" />          </a>
+  </article>
+  
+  <div class="pagination">
+      </div>
+  
+  <div class="continue">
+    <div class="continue-text">
+      <h4>Curious where you&rsquo;d land?</h4>
+      <p>The free Inner Compass test takes about three minutes. Anonymous, no sign-up.</p>
+    </div>
+    <a class="btn" href="https://psychic-test.com/">Take the test &rarr;</a>
+  </div>
+</section>
+
+<footer class="footer container">
+  <span>&copy; 2026 Inner Compass &middot; A test by Clairo</span>
+  <span>Anonymous &middot; No sign-up &middot; Your answers aren&rsquo;t stored</span>
+</footer>
+
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/psychic-testcom-theme/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<script id="ptc-nav-js" src="https://psychic-test.com/wp-content/themes/psychic-testcom-theme/assets/js/navigation.js?ver=2.0.0"></script>
+<script id="wp-emoji-settings" type="application/json">
+{"baseUrl":"https://s.w.org/images/core/emoji/17.0.2/72x72/","ext":".png","svgUrl":"https://s.w.org/images/core/emoji/17.0.2/svg/","svgExt":".svg","source":{"concatemoji":"https://psychic-test.com/wp-includes/js/wp-emoji-release.min.js?ver=7.0"}}
+</script>
+<script type="module">
+/*! This file is auto-generated */
+const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(window._wpemojiSettings=a,"wpEmojiSettingsSupports"),s=["flag","emoji"];function i(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function c(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0);const a=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);return t.every((e,t)=>e===a[t])}function p(e,t){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var n=e.getImageData(16,16,1,1);for(let e=0;e<n.data.length;e++)if(0!==n.data[e])return!1;return!0}function u(e,t,n,a){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\udde8\ud83c\uddf6","\ud83c\udde8\u200b\ud83c\uddf6")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!a(e,"\ud83e\u1fac8")}return!1}function f(e,t,n,a){let r;const o=(r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):document.createElement("canvas")).getContext("2d",{willReadFrequently:!0}),s=(o.textBaseline="top",o.font="600 32px Arial",{});return e.forEach(e=>{s[e]=t(o,e,n,a)}),s}function r(e){var t=document.createElement("script");t.src=e,t.defer=!0,document.head.appendChild(t)}a.supports={everything:!0,everythingExceptFlag:!0},new Promise(t=>{let n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),c.toString(),p.toString()].join(",")+"));",a=new Blob([e],{type:"text/javascript"});const r=new Worker(URL.createObjectURL(a),{name:"wpTestEmojiSupports"});return void(r.onmessage=e=>{i(n=e.data),r.terminate(),t(n)})}catch(e){}i(n=f(s,u,c,p))}t(n)}).then(e=>{for(const n in e)a.supports[n]=e[n],a.supports.everything=a.supports.everything&&a.supports[n],"flag"!==n&&(a.supports.everythingExceptFlag=a.supports.everythingExceptFlag&&a.supports[n]);var t;a.supports.everythingExceptFlag=a.supports.everythingExceptFlag&&!a.supports.flag,a.supports.everything||((t=a.source||{}).concatemoji?r(t.concatemoji):t.wpemoji&&t.twemoji&&(r(t.twemoji),r(t.wpemoji)))});
+//# sourceURL=https://psychic-test.com/wp-includes/js/wp-emoji-loader.min.js
+</script>
+</body>
+</html>

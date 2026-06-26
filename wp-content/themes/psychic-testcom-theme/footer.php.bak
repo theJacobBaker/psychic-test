@@ -1,0 +1,35 @@
+<?php if (!defined('ABSPATH')) exit; ?>
+</main>
+<footer id="colophon" class="site-footer" role="contentinfo"
+  style="background:var(--color-primary);color:#fff;text-align:center;padding:2.5rem 2rem 1.5rem">
+  <div style="max-width:800px;margin:0 auto">
+    <h3 style="font-family:var(--font-heading);color:var(--color-secondary,#D4A843);font-size:1.4rem;margin:0 0 .4rem"><?php bloginfo('name'); ?></h3>
+    <p style="opacity:.65;font-size:.9rem;margin:0 0 1.5rem"><?php bloginfo('description'); ?></p>
+    <nav class="footer-inline-nav">
+      <ul class="fin-list">
+        <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Home</a></li>
+        <li><a href="<?php echo esc_url( home_url( '/how-it-works/' ) ); ?>">How It Works</a></li>
+        <li><a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>">Blog</a></li>
+        <li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>">About Us</a></li>
+        <li><a href="<?php echo esc_url( home_url( '/faq/' ) ); ?>">FAQ</a></li>
+        <li><a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Contact Us</a></li>
+        <li><a href="<?php echo esc_url( home_url( '/psychic-test/' ) ); ?>">Psychic Test</a></li>
+        <li><a href="<?php echo esc_url( home_url( '/intuition-quiz/' ) ); ?>">Intuition Quiz</a></li>
+        <li><a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>">Privacy Policy</a></li>
+        <li><a href="<?php echo esc_url( home_url( '/terms/' ) ); ?>">Terms of Service</a></li>
+        <li><a href="<?php echo esc_url( home_url( '/disclaimer/' ) ); ?>">Disclaimer</a></li>
+      </ul>
+    </nav>
+    <div style="width:60px;height:2px;background:var(--color-secondary,#D4A843);margin:1.5rem auto;opacity:.5"></div>
+    <small style="opacity:.4;font-size:.75rem">&copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?>. All rights reserved.</small>
+  </div>
+</footer>
+<style>
+.fin-list{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;justify-content:center;gap:.3rem .8rem}
+.fin-list li a{color:rgba(255,255,255,.7);text-decoration:none;font-size:.85rem;transition:color .2s;padding:.2rem 0}
+.fin-list li a:hover{color:var(--color-secondary,#D4A843)}
+@media(max-width:600px){.fin-list{flex-direction:column;gap:.4rem}}
+</style>
+<?php wp_footer(); ?>
+</body>
+</html>
