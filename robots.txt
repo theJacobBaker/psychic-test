@@ -1,8 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /wp-admin/
-Disallow: /wp-includes/
-Disallow: /wp-json/
-Disallow: /xmlrpc.php
 
 Sitemap: https://psychic-test.com/sitemap.xml

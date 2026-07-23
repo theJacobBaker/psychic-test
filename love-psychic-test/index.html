@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><style>:root{--bg:#f0f4f8;--bg-soft:#e4ecf4;--bg-card:#f8fafc;--ink:#1a1a1a;--ink-2:#3a3a3a;--ink-3:#6b6b6b;--ink-4:#9aa3af;--line:#d6dfe8;--line-2:#bcc9d8;--accent:#4a6fa5;--accent-deep:#1a2842;--green:#4a7a52;--serif:"Fraunces",Georgia,serif;--sans:"Inter",-apple-system,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.55}
+img{max-width:100%}
+a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
+.container{max-width:960px;margin:0 auto;padding:0 24px}
+.header{padding:22px 0;border-bottom:1px solid var(--line);background:rgba(240,244,248,.9);backdrop-filter:blur(10px);position:sticky;top:0;z-index:10}
+.header-inner{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.logo{display:flex;gap:10px;align-items:center;font-family:var(--serif);font-size:20px;font-weight:500;letter-spacing:-.01em}
+.logo-mark{width:26px;height:26px;border-radius:50%;background:conic-gradient(from 180deg,#1a2842,#4a6fa5,#b8c8e0,#1a2842);position:relative;flex:0 0 auto}
+.logo-mark::after{content:"";position:absolute;inset:5px;border-radius:50%;background:var(--bg)}
+.logo-mark::before{content:"";position:absolute;top:3px;left:50%;width:2px;height:20px;background:var(--ink);transform:translateX(-50%);border-radius:2px}
+.header-nav{display:flex;gap:24px;align-items:center;font-size:14px;color:var(--ink-2)}
+.header-nav a:hover{color:var(--ink)}
+.header-nav .btn{height:40px;padding:0 18px;font-size:13px}
+.header-meta{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase}
+@media(max-width:760px){.header-nav a:not(.btn){display:none}}
+
+.progress-wrap{padding:16px 0;border-bottom:1px solid var(--line)}
+.progress-bar{height:3px;background:var(--line);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:var(--ink);transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.progress-label{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:52px;padding:0 28px;font-size:15px;font-weight:600;border-radius:999px;transition:all .15s}
+.btn svg{width:16px;height:16px}
+.btn-primary{background:var(--ink);color:var(--bg)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 12px 28px -8px rgba(26,40,66,.35)}
+.btn-secondary{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line-2)}
+.btn-secondary:hover{box-shadow:inset 0 0 0 1px var(--ink)}
+.btn-ghost{color:var(--ink-3);padding:0 16px;height:44px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);padding:6px 14px;background:var(--bg-card);border:1px solid var(--line);border-radius:999px}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
+
+.intro{padding:70px 0 84px;text-align:center}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(38px,6vw,64px);line-height:1.03;letter-spacing:-.025em;margin:20px 0 20px}
+h1 em{font-style:italic;font-weight:300;color:var(--accent-deep)}
+.lede{font-size:18px;color:var(--ink-2);max-width:600px;margin:0 auto 36px}
+.intro-meta{display:flex;justify-content:center;gap:40px;margin-top:44px;font-size:13px;color:var(--ink-3);flex-wrap:wrap}
+.intro-meta strong{color:var(--ink);font-family:var(--serif);font-size:22px;font-weight:500;display:block;letter-spacing:-.01em}
+.intro-trust{margin-top:56px;padding-top:30px;border-top:1px solid var(--line);display:flex;justify-content:center;gap:32px;font-size:12px;color:var(--ink-3);flex-wrap:wrap}
+.intro-trust span{display:inline-flex;gap:6px;align-items:center}
+.intro-trust svg{width:14px;height:14px}
+.intro-glyph{width:60px;height:60px;margin:0 auto;color:var(--accent);opacity:.9}
+.intro-glyph svg{width:100%;height:100%}
+
+/* Section shell */
+.section{padding:64px 0}
+.section-head{text-align:center;max-width:620px;margin:0 auto 44px}
+.section-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-deep);margin-bottom:14px}
+.section-title{font-family:var(--serif);font-weight:400;font-size:clamp(30px,4.5vw,44px);line-height:1.08;letter-spacing:-.02em;margin:0 0 14px}
+.section-title em{font-style:italic;color:var(--accent-deep)}
+.section-sub{color:var(--ink-3);font-size:16px}
+
+/* Hub test grid */
+.test-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.test-card{display:flex;flex-direction:column;gap:14px;background:var(--bg-card);border:1px solid var(--line);border-radius:20px;padding:28px;transition:all .18s;height:100%}
+.test-card:hover{transform:translateY(-3px);border-color:var(--line-2);box-shadow:0 16px 40px -16px rgba(26,40,66,.22)}
+.test-card-glyph{width:44px;height:44px;border-radius:12px;background:var(--bg-soft);color:var(--accent-deep);display:flex;align-items:center;justify-content:center}
+.test-card-glyph svg{width:24px;height:24px}
+.test-card h3{font-family:var(--serif);font-weight:500;font-size:22px;letter-spacing:-.01em;margin:0}
+.test-card p{color:var(--ink-3);font-size:14px;margin:0;flex:1}
+.test-card-foot{display:flex;justify-content:space-between;align-items:center;margin-top:6px;padding-top:14px;border-top:1px solid var(--line)}
+.test-card-tag{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-4)}
+.test-card-go{font-size:13px;font-weight:600;color:var(--accent-deep);display:inline-flex;gap:6px;align-items:center}
+.test-card-go svg{width:14px;height:14px;transition:transform .15s}
+.test-card:hover .test-card-go svg{transform:translateX(3px)}
+@media(max-width:700px){.test-grid{grid-template-columns:1fr}}
+
+/* Steps / how it works */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.step{background:var(--bg-card);border:1px solid var(--line);border-radius:18px;padding:28px}
+.step-index{font-family:var(--mono);font-size:12px;color:var(--accent-deep);letter-spacing:.08em;margin-bottom:12px}
+.step h4{font-family:var(--serif);font-size:20px;font-weight:500;margin:0 0 8px;letter-spacing:-.01em}
+.step p{color:var(--ink-3);font-size:14px;margin:0}
+@media(max-width:700px){.steps{grid-template-columns:1fr}}
+
+/* Quiz */
+.quiz{padding:56px 0;min-height:66vh;display:flex;flex-direction:column;justify-content:center}
+.step-num{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:14px}
+.question{font-family:var(--serif);font-weight:400;font-size:clamp(26px,4vw,40px);line-height:1.12;letter-spacing:-.02em;margin:0 0 14px;max-width:720px}
+.question em{font-style:italic;color:var(--accent-deep)}
+.question-sub{color:var(--ink-3);font-size:16px;max-width:560px;margin-bottom:36px}
+.options{display:flex;flex-direction:column;gap:10px;max-width:640px}
+.option{display:flex;align-items:center;gap:16px;padding:18px 22px;background:var(--bg-card);border:1px solid var(--line);border-radius:14px;font-size:16px;text-align:left;transition:all .15s;width:100%}
+.option:hover{border-color:var(--ink);transform:translateX(4px)}
+.option.selected{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.option-letter{flex:0 0 auto;width:32px;height:32px;border-radius:50%;border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;font-weight:600;transition:all .15s}
+.option.selected .option-letter{background:var(--bg);color:var(--ink);border-color:var(--bg)}
+.option-label{flex:1}
+.nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:44px;padding-top:30px;border-top:1px solid var(--line);max-width:640px}
+.scale{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;max-width:640px;margin-top:12px}
+.scale-pt{aspect-ratio:1;border:1px solid var(--line-2);border-radius:50%;background:var(--bg-card);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:16px;color:var(--ink-3);transition:all .15s}
+.scale-pt:hover{border-color:var(--ink);color:var(--ink)}
+.scale-pt.selected{background:var(--ink);color:var(--bg);border-color:var(--ink);transform:scale(1.08)}
+.scale-labels{display:flex;justify-content:space-between;max-width:640px;font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.05em;text-transform:uppercase;margin-top:12px}
+
+/* Cards (ESP / telepathy) */
+.cards-stage{padding:48px 0 72px;min-height:66vh}
+.cards-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.cards-round{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.cards-score{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--accent-deep)}
+.cards-face{margin:24px auto 32px;width:150px;height:200px;border-radius:18px;border:1px solid var(--line-2);background:var(--bg-card);display:flex;align-items:center;justify-content:center;position:relative;box-shadow:0 12px 30px -18px rgba(26,40,66,.4)}
+.cards-face .zener{width:84px;height:84px;color:var(--accent-deep)}
+.cards-face .zener svg{width:100%;height:100%}
+.cards-face .back{position:absolute;inset:0;border-radius:18px;background:repeating-linear-gradient(45deg,#1a2842,#1a2842 8px,#24345a 8px,#24345a 16px);display:flex;align-items:center;justify-content:center;color:#b8c8e0;font-family:var(--serif);font-style:italic;font-size:15px}
+.cards-face.reveal.correct{border-color:var(--green);box-shadow:0 0 0 2px rgba(74,122,82,.4)}
+.cards-face.reveal.wrong{border-color:var(--line-2)}
+.cards-verdict{text-align:center;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;height:16px;margin-bottom:18px}
+.cards-verdict.hit{color:var(--green)}.cards-verdict.miss{color:var(--ink-4)}
+.cards-choices{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;max-width:560px;margin:0 auto}
+.cards-choices.n4{grid-template-columns:repeat(4,1fr);max-width:460px}
+.choice-sym{aspect-ratio:1;border:1px solid var(--line-2);border-radius:14px;background:var(--bg-card);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--ink-2);transition:all .15s;padding:8px}
+.choice-sym:hover{border-color:var(--ink);color:var(--ink);transform:translateY(-2px)}
+.choice-sym[disabled]{opacity:.4;pointer-events:none}
+.choice-sym .zener{width:40px;height:40px}.choice-sym .zener svg{width:100%;height:100%}
+.choice-sym span{font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-4)}
+.cards-hint{text-align:center;color:var(--ink-3);font-size:15px;margin:28px auto 0;max-width:440px}
+@media(max-width:600px){.cards-choices{gap:8px}.choice-sym .zener{width:32px;height:32px}}
+
+/* Result */
+.result{padding:56px 0 84px}
+.result-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-deep);margin-bottom:16px}
+.result-title{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5vw,54px);line-height:1.06;letter-spacing:-.02em;margin:0 0 16px}
+.result-title em{font-style:italic;color:var(--accent-deep)}
+.result-sub{font-size:18px;color:var(--ink-3);max-width:560px;margin-bottom:44px}
+.archetype-card{background:var(--bg-card);border:1px solid var(--line);border-radius:24px;padding:44px;margin-bottom:32px}
+.archetype-header{display:flex;gap:24px;align-items:flex-start;margin-bottom:26px}
+.archetype-glyph{width:72px;height:72px;border-radius:50%;flex:0 0 auto;background:radial-gradient(circle at 30% 30%,#fff,#b8c8e0 40%,#4a6fa5 80%,#1a2842);box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)}
+.archetype-name{font-family:var(--serif);font-size:30px;font-weight:500;letter-spacing:-.02em;margin:0 0 4px}
+.archetype-kicker{color:var(--ink-3);font-size:14px}
+.archetype-body{color:var(--ink-2);font-size:16px;line-height:1.62}
+.archetype-body p{margin:0 0 14px}
+.traits{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px;padding-top:30px;border-top:1px solid var(--line)}
+.trait-label{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+.trait-val{font-family:var(--serif);font-size:18px;font-weight:500}
+@media(max-width:600px){.traits{grid-template-columns:1fr}.archetype-card{padding:26px}.archetype-header{flex-direction:column;gap:16px}}
+
+.recommend{margin-top:44px}
+.recommend h3{font-family:var(--serif);font-size:26px;font-weight:500;letter-spacing:-.015em;margin:0 0 10px}
+.recommend p{color:var(--ink-3);margin-bottom:24px}
+.rec-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.rec-card{background:var(--bg-card);border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;gap:16px;align-items:center;transition:all .15s}
+.rec-card:hover{transform:translateY(-2px);border-color:var(--line-2);box-shadow:0 8px 24px -8px rgba(26,40,66,.14)}
+.rec-photo{width:60px;height:60px;border-radius:50%;background-size:cover;background-position:center;flex:0 0 auto;background-color:var(--bg-soft)}
+.rec-body{flex:1;min-width:0}
+.rec-name{font-family:var(--serif);font-size:18px;font-weight:500}
+.rec-meta{font-size:12px;color:var(--ink-3);margin-top:2px}
+.rec-match{font-family:var(--mono);font-size:11px;color:var(--accent-deep);background:var(--bg-soft);padding:4px 8px;border-radius:999px;letter-spacing:.05em}
+@media(max-width:600px){.rec-grid{grid-template-columns:1fr}}
+
+.result-cta{margin-top:44px;padding:32px;background:var(--ink);color:var(--bg);border-radius:24px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.result-cta-text{max-width:440px}
+.result-cta-text h4{font-family:var(--serif);font-size:24px;font-weight:500;margin:0 0 6px;letter-spacing:-.015em}
+.result-cta-text p{margin:0;opacity:.78;font-size:14px}
+.result-cta .btn{background:var(--bg);color:var(--ink)}
+.result-more{text-align:center;margin-top:36px;font-size:14px;color:var(--ink-3)}
+.result-more a{color:var(--accent-deep);font-weight:600}
+
+.footer{padding:44px 0;border-top:1px solid var(--line);font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:24px}
+.footer-links{display:flex;gap:18px;flex-wrap:wrap}
+.footer-links a:hover{color:var(--ink)}
+.disclaimer-note{max-width:960px;margin:0 auto;padding:0 24px 40px;font-size:12px;color:var(--ink-4);text-align:center;line-height:1.6}
+
+.fade-in{animation:fadeIn .4s ease both}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}</style>
+<title>Free Love Psychic Test — What Is Your Love Future? | Psychic Test</title>
+<meta name='robots' content='max-image-preview:large' />
+
+<meta name="description" content="Take the free love psychic test to reveal the theme of your next chapter in love — reunion, a new beginning, self-love or patience — and connect with a love reader.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Free Love Psychic Test — What Is Your Love Future? | Psychic Test">
+<meta property="og:description" content="Take the free love psychic test to reveal the theme of your next chapter in love — reunion, a new beginning, self-love or patience — and connect with a love reader.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://psychic-test.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fpsychic-test.com%2Flove-psychic-test%2F" />
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://psychic-test.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fpsychic-test.com%2Flove-psychic-test%2F&#038;format=xml" />
+<style id="wp-img-auto-sizes-contain-inline-css">
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<style id="wp-emoji-styles-inline-css">
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+/*# sourceURL=wp-emoji-styles-inline-css */
+</style>
+<style id="wp-block-library-inline-css">
+:root{--wp-block-synced-color:#7a00df;--wp-block-synced-color--rgb:122,0,223;--wp-bound-block-color:var(--wp-block-synced-color);--wp-editor-canvas-background:#ddd;--wp-admin-theme-color:#007cba;--wp-admin-theme-color--rgb:0,124,186;--wp-admin-theme-color-darker-10:#006ba1;--wp-admin-theme-color-darker-10--rgb:0,107,160.5;--wp-admin-theme-color-darker-20:#005a87;--wp-admin-theme-color-darker-20--rgb:0,90,135;--wp-admin-border-width-focus:2px}@media (min-resolution:192dpi){:root{--wp-admin-border-width-focus:1.5px}}.wp-element-button{cursor:pointer}:root .has-very-light-gray-background-color{background-color:#eee}:root .has-very-dark-gray-background-color{background-color:#313131}:root .has-very-light-gray-color{color:#eee}:root .has-very-dark-gray-color{color:#313131}:root .has-vivid-green-cyan-to-vivid-cyan-blue-gradient-background{background:linear-gradient(135deg,#00d084,#0693e3)}:root .has-purple-crush-gradient-background{background:linear-gradient(135deg,#34e2e4,#4721fb 50%,#ab1dfe)}:root .has-hazy-dawn-gradient-background{background:linear-gradient(135deg,#faaca8,#dad0ec)}:root .has-subdued-olive-gradient-background{background:linear-gradient(135deg,#fafae1,#67a671)}:root .has-atomic-cream-gradient-background{background:linear-gradient(135deg,#fdd79a,#004a59)}:root .has-nightshade-gradient-background{background:linear-gradient(135deg,#330968,#31cdcf)}:root .has-midnight-gradient-background{background:linear-gradient(135deg,#020381,#2874fc)}:root{--wp--preset--font-size--normal:16px;--wp--preset--font-size--huge:42px}.has-regular-font-size{font-size:1em}.has-larger-font-size{font-size:2.625em}.has-normal-font-size{font-size:var(--wp--preset--font-size--normal)}.has-huge-font-size{font-size:var(--wp--preset--font-size--huge)}:root .has-text-align-center{text-align:center}:root .has-text-align-left{text-align:left}:root .has-text-align-right{text-align:right}.has-fit-text{white-space:nowrap!important}#end-resizable-editor-section{display:none}.aligncenter{clear:both}.items-justified-left{justify-content:flex-start}.items-justified-center{justify-content:center}.items-justified-right{justify-content:flex-end}.items-justified-space-between{justify-content:space-between}.screen-reader-text{word-wrap:normal!important;border:0;clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px}.screen-reader-text:focus{background-color:#ddd;clip-path:none;color:#444;display:block;font-size:1em;height:auto;left:5px;line-height:normal;padding:15px 23px 14px;text-decoration:none;top:5px;width:auto;z-index:100000}html :where(.has-border-color){border-style:solid}html :where([style*=border-color]){border-style:solid}html :where([style*=border-top-color]){border-top-style:solid}html :where([style*=border-right-color]){border-right-style:solid}html :where([style*=border-bottom-color]){border-bottom-style:solid}html :where([style*=border-left-color]){border-left-style:solid}html :where([style*=border-width]){border-style:solid}html :where([style*=border-top-width]){border-top-style:solid}html :where([style*=border-right-width]){border-right-style:solid}html :where([style*=border-bottom-width]){border-bottom-style:solid}html :where([style*=border-left-width]){border-left-style:solid}html :where(img[class*=wp-image-]){height:auto;max-width:100%}:where(figure){margin:0 0 1em}html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:var(--wp-admin--admin-bar--height,0px)}@media screen and (max-width:600px){html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:0px}}
+
+/*# sourceURL=/wp-includes/css/dist/block-library/common.min.css */
+</style>
+<style id="classic-theme-styles-inline-css">
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+/*# sourceURL=/wp-includes/css/classic-themes.min.css */
+</style>
+
+<style id="global-styles-inline-css">
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}:where(body) { margin: 0; }:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}body{padding-top: 0px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;}:root :where(.wp-element-button, .wp-block-button__link){background-color: #32373c;border-width: 0;color: #fff;font-family: inherit;font-size: inherit;font-style: inherit;font-weight: inherit;letter-spacing: inherit;line-height: inherit;padding-top: calc(0.667em + 2px);padding-right: calc(1.333em + 2px);padding-bottom: calc(0.667em + 2px);padding-left: calc(1.333em + 2px);text-decoration: none;text-transform: inherit;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+
+<link rel='stylesheet' id='ptc-fonts-css' href='https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&#038;family=DM+Sans:wght@300;400;500;600;700&#038;display=swap' media='all' />
+<link rel='stylesheet' id='ptc-style-css' href='https://psychic-test.com/wp-content/themes/psychic-testcom-theme/style.css?ver=2.0.0' media='all' />
+<link rel="https://api.w.org/" href="https://psychic-test.com/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="https://psychic-test.com/wp-json/wp/v2/pages/94" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://psychic-test.com/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 7.0.2" />
+<link rel="canonical" href="https://psychic-test.com/love-psychic-test/" />
+<link rel='shortlink' href='https://psychic-test.com/?p=94' />
+<link rel="icon" href="https://psychic-test.com/wp-content/uploads/2026/03/site_30_favicon.png" sizes="32x32" />
+<link rel="icon" href="https://psychic-test.com/wp-content/uploads/2026/03/site_30_favicon.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://psychic-test.com/wp-content/uploads/2026/03/site_30_favicon.png" />
+<meta name="msapplication-TileImage" content="https://psychic-test.com/wp-content/uploads/2026/03/site_30_favicon.png" />
+<style id="wp-custom-css">
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root{--bg:#f0f4f8;--bg-soft:#e4ecf4;--bg-card:#f8fafc;--ink:#1a1a1a;--ink-2:#3a3a3a;--ink-3:#6b6b6b;--ink-4:#9aa3af;--line:#d6dfe8;--line-2:#bcc9d8;--accent:#4a6fa5;--accent-deep:#1a2842;--green:#4a7a52;--serif:"Fraunces",Georgia,serif;--sans:"Inter",-apple-system,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.55}
+a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
+.container{max-width:920px;margin:0 auto;padding:0 24px}
+.header{padding:24px 0;border-bottom:1px solid var(--line);background:rgba(240,244,248,.9);backdrop-filter:blur(10px);position:sticky;top:0;z-index:10}
+.header-inner{display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;gap:10px;align-items:center;font-family:var(--serif);font-size:20px;font-weight:500;letter-spacing:-.01em}
+.logo-mark{width:26px;height:26px;border-radius:50%;background:conic-gradient(from 180deg,#1a2842,#4a6fa5,#b8c8e0,#1a2842);position:relative}
+.logo-mark::after{content:"";position:absolute;inset:5px;border-radius:50%;background:var(--bg)}
+.logo-mark::before{content:"";position:absolute;top:3px;left:50%;width:2px;height:20px;background:var(--ink);transform:translateX(-50%);border-radius:2px}
+.header-meta{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase}
+.progress-wrap{padding:16px 0;border-bottom:1px solid var(--line)}
+.progress-bar{height:3px;background:var(--line);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:var(--ink);transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.progress-label{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+
+.intro{padding:80px 0 96px;text-align:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);padding:6px 14px;background:var(--bg-card);border:1px solid var(--line);border-radius:999px}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(40px,6vw,68px);line-height:1.02;letter-spacing:-.025em;margin:20px 0 20px}
+h1 em{font-style:italic;font-weight:300;color:var(--accent-deep)}
+.lede{font-size:18px;color:var(--ink-2);max-width:560px;margin:0 auto 36px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:52px;padding:0 28px;font-size:15px;font-weight:600;border-radius:999px;transition:all .15s}
+.btn-primary{background:var(--ink);color:var(--bg)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 12px 28px -8px rgba(26,40,66,.35)}
+.btn-secondary{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line-2)}
+.btn-secondary:hover{box-shadow:inset 0 0 0 1px var(--ink)}
+.btn-ghost{color:var(--ink-3);padding:0 16px;height:44px}
+.intro-meta{display:flex;justify-content:center;gap:40px;margin-top:48px;font-size:13px;color:var(--ink-3);flex-wrap:wrap}
+.intro-meta strong{color:var(--ink);font-family:var(--serif);font-size:22px;font-weight:500;display:block;letter-spacing:-.01em}
+.intro-trust{margin-top:64px;padding-top:32px;border-top:1px solid var(--line);display:flex;justify-content:center;gap:32px;font-size:12px;color:var(--ink-3);flex-wrap:wrap}
+.intro-trust span{display:inline-flex;gap:6px;align-items:center}
+.intro-trust svg{width:14px;height:14px}
+
+/* Quiz */
+.quiz{padding:64px 0;min-height:70vh;display:flex;flex-direction:column;justify-content:center}
+.step-num{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:14px}
+.question{font-family:var(--serif);font-weight:400;font-size:clamp(28px,4vw,44px);line-height:1.1;letter-spacing:-.02em;margin:0 0 16px;max-width:720px}
+.question em{font-style:italic;color:var(--accent-deep)}
+.question-sub{color:var(--ink-3);font-size:16px;max-width:560px;margin-bottom:40px}
+.options{display:flex;flex-direction:column;gap:10px;max-width:640px}
+.option{display:flex;align-items:center;gap:16px;padding:20px 24px;background:var(--bg-card);border:1px solid var(--line);border-radius:14px;font-size:16px;text-align:left;transition:all .15s;width:100%}
+.option:hover{border-color:var(--ink);transform:translateX(4px)}
+.option.selected{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.option-letter{flex:0 0 auto;width:32px;height:32px;border-radius:50%;border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;font-weight:600;transition:all .15s}
+.option.selected .option-letter{background:var(--bg);color:var(--ink);border-color:var(--bg)}
+.option-label{flex:1}
+.nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:48px;padding-top:32px;border-top:1px solid var(--line);max-width:640px}
+
+/* Scale */
+.scale{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;max-width:640px;margin-top:12px}
+.scale-pt{aspect-ratio:1;border:1px solid var(--line-2);border-radius:50%;background:var(--bg-card);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:16px;color:var(--ink-3);transition:all .15s}
+.scale-pt:hover{border-color:var(--ink);color:var(--ink)}
+.scale-pt.selected{background:var(--ink);color:var(--bg);border-color:var(--ink);transform:scale(1.08)}
+.scale-labels{display:flex;justify-content:space-between;max-width:640px;font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.05em;text-transform:uppercase;margin-top:12px}
+
+/* Result */
+.result{padding:64px 0 96px;display:none}
+.result.show{display:block}
+.result-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-deep);margin-bottom:16px}
+.result-title{font-family:var(--serif);font-weight:400;font-size:clamp(40px,5.5vw,60px);line-height:1.05;letter-spacing:-.02em;margin:0 0 16px}
+.result-title em{font-style:italic;color:var(--accent-deep)}
+.result-sub{font-size:18px;color:var(--ink-3);max-width:560px;margin-bottom:48px}
+.archetype-card{background:var(--bg-card);border:1px solid var(--line);border-radius:24px;padding:48px;margin-bottom:32px}
+.archetype-header{display:flex;gap:24px;align-items:flex-start;margin-bottom:28px}
+.archetype-glyph{width:72px;height:72px;border-radius:50%;flex:0 0 auto;background:radial-gradient(circle at 30% 30%,#fff,#b8c8e0 40%,#4a6fa5 80%,#1a2842);box-shadow:inset 0 0 0 1px rgba(0,0,0,.1);position:relative}
+.archetype-name{font-family:var(--serif);font-size:32px;font-weight:500;letter-spacing:-.02em;margin:0 0 4px}
+.archetype-kicker{color:var(--ink-3);font-size:14px}
+.archetype-body{color:var(--ink-2);font-size:16px;line-height:1.6}
+.archetype-body p{margin:0 0 14px}
+.traits{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px;padding-top:32px;border-top:1px solid var(--line)}
+.trait-label{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+.trait-val{font-family:var(--serif);font-size:18px;font-weight:500}
+
+.recommend{margin-top:48px}
+.recommend h3{font-family:var(--serif);font-size:28px;font-weight:500;letter-spacing:-.015em;margin:0 0 20px}
+.recommend p{color:var(--ink-3);margin-bottom:24px}
+.rec-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.rec-card{background:var(--bg-card);border:1px solid var(--line);border-radius:16px;padding:24px;display:flex;gap:16px;align-items:center;cursor:pointer;transition:all .15s}
+.rec-card:hover{transform:translateY(-2px);border-color:var(--line-2);box-shadow:0 8px 24px -8px rgba(26,40,66,.12)}
+.rec-photo{width:64px;height:64px;border-radius:50%;background-size:cover;background-position:center;flex:0 0 auto}
+.rec-body{flex:1;min-width:0}
+.rec-name{font-family:var(--serif);font-size:18px;font-weight:500;display:flex;gap:4px;align-items:center}
+.rec-meta{font-size:12px;color:var(--ink-3);margin-top:2px}
+.rec-match{font-family:var(--mono);font-size:11px;color:var(--accent-deep);background:var(--bg-soft);padding:4px 8px;border-radius:999px;letter-spacing:.05em}
+
+.result-cta{margin-top:48px;padding:32px;background:var(--ink);color:var(--bg);border-radius:24px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.result-cta-text{max-width:420px}
+.result-cta-text h4{font-family:var(--serif);font-size:24px;font-weight:500;margin:0 0 6px;letter-spacing:-.015em}
+.result-cta-text p{margin:0;opacity:.75;font-size:14px}
+.result-cta .btn{background:var(--bg);color:var(--ink)}
+
+.footer{padding:48px 0;border-top:1px solid var(--line);font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-top:48px}
+
+/* Animations */
+.fade-in{animation:fadeIn .4s ease both}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+@media (max-width:700px){
+  .rec-grid,.traits{grid-template-columns:1fr}
+  .scale{grid-template-columns:repeat(7,1fr);gap:4px}
+  .archetype-card{padding:28px}
+  .archetype-header{flex-direction:column;gap:16px}
+}
+
+</style>
+</head>
+<body class="wp-singular page-template page-template-template-test page-template-template-test-php page page-id-94 wp-theme-psychic-testcom-theme ptc-test-page">
+<div id="root"></div>
+<script>
+window.PTC_TEST = {"nav":"Love Reading","card":"What Does Your Love Future Hold?","blurb":"Your heart already knows the theme of your next chapter. This test names it \u2014 and the reader who can guide it.","tag":"6 questions \u00b7 3 min","glyph":"heart","title":"What Does Your Love Future Hold?","meta_title":"Free Love Psychic Test \u2014 What Is Your Love Future? | Psychic Test","meta_desc":"Take the free love psychic test to reveal the theme of your next chapter in love \u2014 reunion, a new beginning, self-love or patience \u2014 and connect with a love reader.","eyebrow":"Free \u00b7 6 questions \u00b7 3 minutes","lede":"Six honest questions to name the pattern your heart is moving through \u2014 and the guidance that fits it.","engine":"quiz","mode":"archetype","questions":[{"id":"q1","prompt":"Where is your heart *right now?*","sub":"","type":"choice","options":[{"label":"Missing someone from my past","tags":{"reunion":2}},{"label":"Ready for something new","tags":{"newchapter":2}},{"label":"Learning to love myself first","tags":{"selflove":2}},{"label":"Waiting on someone unsure","tags":{"patience":2}}]},{"id":"q2","prompt":"What keeps circling in your mind at night?","sub":"","type":"choice","options":[{"label":"\"Will they come back?\"","tags":{"reunion":2}},{"label":"\"Where do I meet the right person?\"","tags":{"newchapter":2}},{"label":"\"Why do I keep choosing the same type?\"","tags":{"selflove":2}},{"label":"\"Is this going anywhere?\"","tags":{"patience":2}}]},{"id":"q3","prompt":"When you picture being happy in love, you see\u2026","sub":"","type":"choice","options":[{"label":"A door reopening","tags":{"reunion":1}},{"label":"A stranger who becomes home","tags":{"newchapter":1}},{"label":"Feeling whole on my own","tags":{"selflove":1}},{"label":"Clarity, finally","tags":{"patience":1}}]},{"id":"q4","prompt":"What's the hardest part of love for you lately?","sub":"","type":"choice","options":[{"label":"Letting go","tags":{"reunion":2}},{"label":"Putting myself out there","tags":{"newchapter":2}},{"label":"Believing I deserve it","tags":{"selflove":2}},{"label":"Not knowing where I stand","tags":{"patience":2}}]},{"id":"q5","prompt":"What would help you most right now?","sub":"","type":"choice","options":[{"label":"To know if reconciliation is possible","tags":{"reunion":2}},{"label":"A sense of when love arrives","tags":{"newchapter":2}},{"label":"To heal an old pattern","tags":{"selflove":2}},{"label":"To read the other person's true feelings","tags":{"patience":2}}]},{"id":"q6","prompt":"How ready do you feel to hear the honest answer?","sub":"","type":"scale"}],"results":{"reunion":{"name":"A Reunion Theme","kicker":"Something unfinished is still alive","body":["Your heart is turned toward someone from your past. Whether that door reopens or finally closes, there is real unfinished energy here \u2014 and clarity will free you either way.","A love-focused reader can look at the connection honestly: is this a true reunion, or a lesson asking to be released?"],"traits":{"Theme":"Reunion","You need":"Clarity","Reader fit":"Love reader"},"cats":["reunion","love"]},"newchapter":{"name":"A New Chapter","kicker":"Fresh love is on its way in","body":["You're standing at the start of something. The energy around you is opening, not closing \u2014 but timing and self-trust are the questions. Where, when, and how to recognise it when it arrives.","A reader can read the timing and the type of person moving toward you, so you meet it with open eyes."],"traits":{"Theme":"New love","You need":"Timing","Reader fit":"Love \/ Astrology"},"cats":["newchapter","love"]},"selflove":{"name":"A Season of Self-Love","kicker":"The relationship to heal first is with you","body":["A pattern keeps repeating, and the deepest guidance points inward before outward. This isn't a consolation prize \u2014 it's the chapter that changes every chapter after it.","A compassionate reader can help you see the pattern clearly and the love that becomes possible once it shifts."],"traits":{"Theme":"Healing","You need":"Insight","Reader fit":"Empath reader"},"cats":["selflove","empath"]},"patience":{"name":"A Test of Patience","kicker":"You're waiting on an unclear connection","body":["You're in the hardest place in love \u2014 the not-knowing. Someone's intentions are unclear, and the uncertainty is louder than the situation deserves. You need to read what's really there.","A reader can tune into the other person's true feelings and intentions, so you can stop guessing and decide."],"traits":{"Theme":"Uncertainty","You need":"Their truth","Reader fit":"Love reader"},"cats":["patience","love"]}}};
+window.PTC_SPECIALISTS = [{"id":0,"name":"Elena Marsh","meta":"Love & Relationships \u00b7 19 yrs","photo":"https:\/\/images.unsplash.com\/photo-1544005313-94ddf0286df2?w=400&q=80","cats":["love","clairsentient","reunion"]},{"id":1,"name":"Matilda Oak","meta":"Career & Decisions \u00b7 14 yrs","photo":"https:\/\/images.unsplash.com\/photo-1580489944761-15a19d654956?w=400&q=80","cats":["career","claircognizant","knower","intuition"]},{"id":2,"name":"Nova Bennett","meta":"Tarot & Intuitive \u00b7 9 yrs","photo":"https:\/\/images.unsplash.com\/photo-1494790108377-be9c29b29330?w=400&q=80","cats":["tarot","intuition","esp","clairvoyant","seer"]},{"id":3,"name":"Ruth Callahan","meta":"Mediumship & Grief \u00b7 27 yrs","photo":"https:\/\/images.unsplash.com\/photo-1438761681033-6461ffad8d80?w=400&q=80","cats":["mediumship","grief","ancestor","clairaudient","medium"]},{"id":4,"name":"Priya Shah","meta":"Vedic Astrology \u00b7 18 yrs","photo":"https:\/\/images.unsplash.com\/photo-1531123897727-8f129e1688ce?w=400&q=80","cats":["astrology","love","newchapter","teacher"]},{"id":5,"name":"Celeste Amari","meta":"Dreams & Shadow \u00b7 16 yrs","photo":"https:\/\/images.unsplash.com\/photo-1534528741775-53994a69daeb?w=400&q=80","cats":["dreams","empath","shadow","guardian","selflove"]},{"id":6,"name":"Isadora Vale","meta":"Natal Charts \u00b7 22 yrs","photo":"https:\/\/images.unsplash.com\/photo-1573496359142-b8d87734a5a2?w=400&q=80","cats":["astrology","guide","animal","patience","reader"]},{"id":7,"name":"August Wren","meta":"Energy & Empath \u00b7 11 yrs","photo":"https:\/\/images.unsplash.com\/photo-1607746882042-944635dfe10e?w=400&q=80","cats":["empath","energy","telepathy","aura","healer"]}];
+window.PTC_CONSULT = "https:\/\/psychic-test.com\/talk-to-a-psychic\/";
+</script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<script type="text/babel">const { useState } = React;
+const T = window.PTC_TEST;
+const SPECIALISTS = window.PTC_SPECIALISTS || [];
+const CONSULT = window.PTC_CONSULT || "/talk-to-a-psychic/";
+const ZENER = {
+  circle: '<svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3"><circle cx="30" cy="30" r="20"/></svg>',
+  cross:  '<svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3"><path d="M30 10v40M10 30h40"/></svg>',
+  waves:  '<svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3"><path d="M8 20c6-8 12 8 18 0s12 8 18 0M8 32c6-8 12 8 18 0s12 8 18 0M8 44c6-8 12 8 18 0s12 8 18 0"/></svg>',
+  square: '<svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3"><rect x="12" y="12" width="36" height="36"/></svg>',
+  star:   '<svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"><path d="M30 8l6.5 15.5L53 25l-12.5 11L44 52 30 43 16 52l3.5-16L7 25l16.5-1.5z"/></svg>',
+};
+
+function matchSpecialists(cats, limit){
+  limit = limit || 2;
+  const scored = SPECIALISTS.map(s => ({...s, _s: (s.cats||[]).filter(c => (cats||[]).indexOf(c) > -1).length}));
+  scored.sort((a,b) => b._s - a._s);
+  return scored.slice(0, limit);
+}
+function letterFor(i){ return ["A","B","C","D","E","F"][i]; }
+
+function Intro({ onStart }){
+  return (
+    <section className="intro fade-in">
+      <span className="eyebrow"><span className="dot"/>{T.eyebrow}</span>
+      <h1 dangerouslySetInnerHTML={{__html: T.title.replace(/\*(.+?)\*/g,'<em>$1</em>')}}/>
+      <p className="lede">{T.lede}</p>
+      <button className="btn btn-primary" onClick={onStart}>Begin the test
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+      <div className="intro-trust">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Anonymous</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"><path d="M12 3l8 3v5c0 5-3.4 9.3-8 10-4.6-.7-8-5-8-10V6z"/></svg>No sign-up</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Instant result</span>
+      </div>
+    </section>
+  );
+}
+
+function Question({ q, idx, total, value, onAnswer, onNext, onBack }){
+  return (
+    <section className="quiz fade-in" key={q.id}>
+      <div className="step-num">Question {idx+1} of {total}</div>
+      <h2 className="question" dangerouslySetInnerHTML={{__html: q.prompt.replace(/\*(.+?)\*/g,'<em>$1</em>')}}/>
+      {q.sub ? <p className="question-sub">{q.sub}</p> : null}
+      {q.type === "choice" && (
+        <div className="options">
+          {q.options.map((o,i) => (
+            <button key={i} className={"option"+(value===i?" selected":"")} onClick={() => onAnswer(i)}>
+              <span className="option-letter">{letterFor(i)}</span>
+              <span className="option-label">{o.label}</span>
+            </button>
+          ))}
+        </div>
+      )}
+      {q.type === "scale" && (
+        <>
+          <div className="scale">
+            {[1,2,3,4,5,6,7].map(n => (
+              <button key={n} className={"scale-pt"+(value===n?" selected":"")} onClick={() => onAnswer(n)}>{n}</button>
+            ))}
+          </div>
+          <div className="scale-labels"><span>Not at all</span><span>Completely</span></div>
+        </>
+      )}
+      <div className="nav-row">
+        <button className="btn btn-ghost" onClick={onBack} style={{visibility: idx===0?"hidden":"visible"}}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous
+        </button>
+        <button className="btn btn-primary" onClick={onNext} disabled={value===undefined}
+          style={{opacity: value===undefined?0.4:1, pointerEvents: value===undefined?"none":"auto"}}>
+          {idx===total-1 ? "See my result" : "Continue"}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+    </section>
+  );
+}
+
+function Cards({ onDone }){
+  const cfg = T.cards;
+  const rounds = cfg.rounds;
+  const [round, setRound] = useState(0);
+  const [correct, setCorrect] = useState(0);
+  const [target, setTarget] = useState(() => Math.floor(Math.random()*cfg.symbols.length));
+  const [picked, setPicked] = useState(null); // index into symbols
+  const revealed = picked !== null;
+  const isHit = revealed && cfg.symbols[picked].k === cfg.symbols[target].k;
+
+  function pick(i){
+    if (revealed) return;
+    setPicked(i);
+    const hit = cfg.symbols[i].k === cfg.symbols[target].k;
+    if (hit) setCorrect(c => c+1);
+    setTimeout(() => {
+      const next = round+1;
+      if (next >= rounds){ onDone(hit?correct+1:correct, rounds); return; }
+      setRound(next); setPicked(null); setTarget(Math.floor(Math.random()*cfg.symbols.length));
+    }, 950);
+  }
+
+  const targetKey = cfg.symbols[target].k;
+  return (
+    <section className="cards-stage fade-in">
+      <div className="container" style={{maxWidth:640}}>
+        <div className="cards-top">
+          <span className="cards-round">Round {round+1} of {rounds}</span>
+          <span className="cards-score">{correct} sensed</span>
+        </div>
+        <div className={"cards-face"+(revealed?(" reveal "+(isHit?"correct":"wrong")):"")}>
+          {revealed
+            ? <span className="zener" dangerouslySetInnerHTML={{__html: ZENER[targetKey]}}/>
+            : <span className="back">focus…</span>}
+        </div>
+        <div className={"cards-verdict "+(revealed?(isHit?"hit":"miss"):"")}>{revealed?(isHit?"A hit":"Not this time"):""}</div>
+        <p className="question-sub" style={{textAlign:"center",margin:"0 auto 22px"}}>{cfg.prompt}<br/><span style={{color:"var(--ink-4)"}}>{cfg.sub}</span></p>
+        <div className={"cards-choices"+(cfg.symbols.length===4?" n4":"")}>
+          {cfg.symbols.map((s,i) => (
+            <button key={i} className="choice-sym" disabled={revealed} onClick={() => pick(i)}>
+              <span className="zener" dangerouslySetInnerHTML={{__html: ZENER[s.k]}}/>
+              <span>{s.label}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function computeArchetype(answers){
+  const tally = {};
+  T.questions.forEach(q => {
+    const v = answers[q.id];
+    if (v === undefined) return;
+    if (q.type === "choice"){
+      const tags = (q.options[v] && q.options[v].tags) || {};
+      Object.keys(tags).forEach(k => { tally[k] = (tally[k]||0) + tags[k]; });
+    }
+  });
+  let best = null, bestN = -1;
+  Object.keys(T.results).forEach(k => { const n = tally[k]||0; if (n > bestN){ bestN = n; best = k; } });
+  if (best === null) best = Object.keys(T.results)[0];
+  return T.results[best];
+}
+function computeLevelPct(answers){
+  let score = 0, max = 0;
+  T.questions.forEach(q => {
+    if (q.type === "choice"){
+      max += 3;
+      const v = answers[q.id];
+      if (v !== undefined) score += (q.options[v] && q.options[v].pts) || 0;
+    } else if (q.type === "scale"){
+      max += 3;
+      const v = answers[q.id];
+      if (v !== undefined) score += Math.round(((v-1)/6)*3);
+    }
+  });
+  return max ? Math.round((score/max)*100) : 0;
+}
+function levelForPct(pct){
+  // levels are ordered high-min first
+  for (let i=0;i<T.levels.length;i++){ if (pct >= T.levels[i].min) return T.levels[i]; }
+  return T.levels[T.levels.length-1];
+}
+
+function Result({ result, note, onRestart }){
+  const recs = matchSpecialists(result.cats, 2);
+  return (
+    <section className="result fade-in">
+      <div className="result-eyebrow">Your result</div>
+      <h2 className="result-title" dangerouslySetInnerHTML={{__html: "You are <em>"+result.name+".</em>"}}/>
+      <p className="result-sub">{result.kicker}.</p>
+      {note ? <p className="question-sub" style={{marginTop:-24}}>{note}</p> : null}
+
+      <div className="archetype-card">
+        <div className="archetype-header">
+          <div className="archetype-glyph"/>
+          <div>
+            <h3 className="archetype-name">{result.name}</h3>
+            <div className="archetype-kicker">{result.kicker}</div>
+          </div>
+        </div>
+        <div className="archetype-body">{result.body.map((p,i) => <p key={i}>{p}</p>)}</div>
+        <div className="traits">
+          {Object.keys(result.traits).map(k => (
+            <div key={k}><div className="trait-label">{k}</div><div className="trait-val">{result.traits[k]}</div></div>
+          ))}
+        </div>
+      </div>
+
+      <div className="recommend">
+        <h3>Readers we'd suggest for you</h3>
+        <p>Chosen from your result. Each has a strong record with exactly this.</p>
+        <div className="rec-grid">
+          {recs.map(p => (
+            <a key={p.id} className="rec-card" href={CONSULT}>
+              <div className="rec-photo" style={{backgroundImage:"url("+p.photo+")"}}/>
+              <div className="rec-body"><div className="rec-name">{p.name}</div><div className="rec-meta">{p.meta}</div></div>
+              <div className="rec-match">Great fit</div>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div className="result-cta">
+        <div className="result-cta-text">
+          <h4>Talk it through with a specialist.</h4>
+          <p>Your first few minutes are free. Start a reading with a matched reader — end anytime, no charge if it isn't right.</p>
+        </div>
+        <a className="btn btn-primary" href={CONSULT}>Talk to a specialist
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+      <div className="result-more">
+        <button className="btn btn-ghost" onClick={onRestart}>Retake the test</button>
+        <div style={{marginTop:10}}>Or <a href="/">try another test</a>.</div>
+      </div>
+    </section>
+  );
+}
+
+function App(){
+  const [stage, setStage] = useState("intro"); // intro | quiz | cards | result
+  const [idx, setIdx] = useState(0);
+  const [answers, setAnswers] = useState({});
+  const [finished, setFinished] = useState(null); // {result, note}
+
+  const start = () => setStage(T.engine === "cards" ? "cards" : "quiz");
+
+  function onAnswer(v){ setAnswers(a => ({...a, [T.questions[idx].id]: v})); }
+  function onNext(){
+    if (idx === T.questions.length-1){ finishQuiz(); }
+    else setIdx(idx+1);
+  }
+  function onBack(){ setIdx(Math.max(0, idx-1)); }
+
+  function finishQuiz(){
+    if (T.mode === "archetype"){ setFinished({result: computeArchetype(answers)}); }
+    else {
+      const pct = computeLevelPct(answers);
+      setFinished({result: levelForPct(pct)});
+    }
+    setStage("result");
+  }
+  function onCardsDone(correct, rounds){
+    const pct = Math.round((correct/rounds)*100);
+    setFinished({result: levelForPct(pct), note: "You sensed "+correct+" of "+rounds+" ("+pct+"%). Pure chance is about "+(T.cards.chance)+"%."});
+    setStage("result");
+  }
+
+  const q = T.questions ? T.questions[idx] : null;
+  const val = q ? answers[q.id] : undefined;
+  const total = T.questions ? T.questions.length : 0;
+  const pct = stage==="result" ? 100 : (stage==="quiz" ? ((idx+1)/total)*100 : (stage==="cards"?50:0));
+
+  return (
+    <>
+      <header className="header">
+        <div className="container header-inner">
+          <a className="logo" href="/"><span className="logo-mark"/>Psychic Test</a>
+          <nav className="header-nav">
+            <a href="/">All tests</a>
+            <a href={CONSULT} className="btn btn-secondary">Talk to a psychic</a>
+          </nav>
+        </div>
+      </header>
+
+      {stage !== "intro" && (
+        <div className="progress-wrap"><div className="container">
+          <div className="progress-label">
+            <span>{stage==="result" ? "Complete" : (stage==="cards" ? "In progress" : "Question "+(idx+1)+" / "+total)}</span>
+            <span>{Math.round(pct)}%</span>
+          </div>
+          <div className="progress-bar"><div className="progress-fill" style={{width: pct+"%"}}/></div>
+        </div></div>
+      )}
+
+      <main className="container">
+        {stage==="intro" && <Intro onStart={start}/>}
+        {stage==="quiz" && <Question q={q} idx={idx} total={total} value={val} onAnswer={onAnswer} onNext={onNext} onBack={onBack}/>}
+      </main>
+      {stage==="cards" && <Cards onDone={onCardsDone}/>}
+      <main className="container">
+        {stage==="result" && finished && <Result result={finished.result} note={finished.note} onRestart={() => {setStage("intro");setIdx(0);setAnswers({});setFinished(null);}}/>}
+      </main>
+
+      <footer className="footer container">
+        <span>© 2026 Psychic Test · For entertainment & self-reflection</span>
+        <span>Anonymous · No sign-up · Answers aren't stored</span>
+      </footer>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);</script>
+<noscript>
+  <div class="container" style="padding:60px 24px;text-align:center">
+    <h1 style="font-family:var(--serif)">What Does Your Love Future Hold?</h1>
+    <p class="lede">Six honest questions to name the pattern your heart is moving through — and the guidance that fits it.</p>
+    <p>This test needs JavaScript. <a href="https://psychic-test.com/talk-to-a-psychic/">Talk to a specialist instead &rarr;</a></p>
+  </div>
+</noscript>
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/psychic-testcom-theme/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<script id="ptc-nav-js" src="https://psychic-test.com/wp-content/themes/psychic-testcom-theme/assets/js/navigation.js?ver=2.0.0"></script>
+<script id="wp-emoji-settings" type="application/json">
+{"baseUrl":"https://s.w.org/images/core/emoji/17.0.2/72x72/","ext":".png","svgUrl":"https://s.w.org/images/core/emoji/17.0.2/svg/","svgExt":".svg","source":{"concatemoji":"https://psychic-test.com/wp-includes/js/wp-emoji-release.min.js?ver=7.0.2"}}
+</script>
+<script type="module">
+/*! This file is auto-generated */
+const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(window._wpemojiSettings=a,"wpEmojiSettingsSupports"),s=["flag","emoji"];function i(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function c(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0);const a=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);return t.every((e,t)=>e===a[t])}function p(e,t){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var n=e.getImageData(16,16,1,1);for(let e=0;e<n.data.length;e++)if(0!==n.data[e])return!1;return!0}function u(e,t,n,a){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\udde8\ud83c\uddf6","\ud83c\udde8\u200b\ud83c\uddf6")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!a(e,"\ud83e\u1fac8")}return!1}function f(e,t,n,a){let r;const o=(r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):document.createElement("canvas")).getContext("2d",{willReadFrequently:!0}),s=(o.textBaseline="top",o.font="600 32px Arial",{});return e.forEach(e=>{s[e]=t(o,e,n,a)}),s}function r(e){var t=document.createElement("script");t.src=e,t.defer=!0,document.head.appendChild(t)}a.supports={everything:!0,everythingExceptFlag:!0},new Promise(t=>{let n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),c.toString(),p.toString()].join(",")+"));",a=new Blob([e],{type:"text/javascript"});const r=new Worker(URL.createObjectURL(a),{name:"wpTestEmojiSupports"});return void(r.onmessage=e=>{i(n=e.data),r.terminate(),t(n)})}catch(e){}i(n=f(s,u,c,p))}t(n)}).then(e=>{for(const n in e)a.supports[n]=e[n],a.supports.everything=a.supports.everything&&a.supports[n],"flag"!==n&&(a.supports.everythingExceptFlag=a.supports.everythingExceptFlag&&a.supports[n]);var t;a.supports.everythingExceptFlag=a.supports.everythingExceptFlag&&!a.supports.flag,a.supports.everything||((t=a.source||{}).concatemoji?r(t.concatemoji):t.wpemoji&&t.twemoji&&(r(t.twemoji),r(t.wpemoji)))});
+//# sourceURL=https://psychic-test.com/wp-includes/js/wp-emoji-loader.min.js
+</script>
+</body>
+</html>
