@@ -673,3 +673,20 @@ img { max-width: 100%; height: auto; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
 }
+
+/* Читабельність і мобільна сітка: підтверджені дефекти аудиту 26.10.2026. */
+:root {
+  --color-primary: #00786B;
+  --color-accent: #00695C;
+  --ink-4: #64748B;
+}
+.site-footer h3,
+.site-footer p,
+.site-footer small,
+.site-footer .fin-list a {
+  color: #FFFFFF !important;
+  opacity: 1 !important;
+}
+@media (max-width: 600px) {
+  .rec-grid[style] { grid-template-columns: minmax(0, 1fr) !important; }
+}
