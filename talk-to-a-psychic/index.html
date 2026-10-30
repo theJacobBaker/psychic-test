@@ -146,7 +146,7 @@ h1 em{font-style:italic;font-weight:300;color:var(--accent-deep)}
 .rec-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
 .rec-card{background:var(--bg-card);border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;gap:16px;align-items:center;transition:all .15s}
 .rec-card:hover{transform:translateY(-2px);border-color:var(--line-2);box-shadow:0 8px 24px -8px rgba(26,40,66,.14)}
-.rec-photo{width:60px;height:60px;border-radius:50%;background-size:cover;background-position:center;flex:0 0 auto;background-color:var(--bg-soft)}
+.rec-photo{width:60px;height:60px;border-radius:50%;background-size:cover;background-position:center 18%;flex:0 0 auto;background-color:var(--bg-soft)}
 .rec-body{flex:1;min-width:0}
 .rec-name{font-family:var(--serif);font-size:18px;font-weight:500}
 .rec-meta{font-size:12px;color:var(--ink-3);margin-top:2px}
@@ -170,7 +170,7 @@ h1 em{font-style:italic;font-weight:300;color:var(--accent-deep)}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}.spec-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
 .spec-card{background:var(--bg-card);border:1px solid var(--line);border-radius:20px;padding:26px;display:flex;gap:18px;align-items:flex-start;transition:all .18s}
 .spec-card:hover{transform:translateY(-3px);border-color:var(--line-2);box-shadow:0 16px 40px -16px rgba(26,40,66,.2)}
-.spec-photo{width:76px;height:76px;border-radius:50%;background-size:cover;background-position:center;flex:0 0 auto;background-color:var(--bg-soft)}
+.spec-photo{width:76px;height:76px;border-radius:50%;background-size:cover;background-position:center 18%;flex:0 0 auto;background-color:var(--bg-soft)}
 .spec-info{flex:1;min-width:0}
 .spec-name{font-family:var(--serif);font-size:21px;font-weight:500;letter-spacing:-.01em}
 .spec-badge{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-deep);background:var(--bg-soft);padding:4px 9px;border-radius:999px;margin:8px 0}
@@ -230,7 +230,7 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 
 <link rel='stylesheet' id='ptc-fonts-css' href='https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&#038;family=DM+Sans:wght@300;400;500;600;700&#038;display=swap' media='all' />
 <link rel='stylesheet' id='ptc-style-css' href='https://psychic-test.com/wp-content/themes/psychic-testcom-theme/style.css?ver=2.0.0' media='all' />
-<meta name="generator" content="WordPress 7.1.3" />
+<meta name="generator" content="WordPress 7.1.4" />
 <link rel="canonical" href="https://psychic-test.com/talk-to-a-psychic/" />
 <link rel="icon" href="https://psychic-test.com/wp-content/uploads/2026/03/site_30_favicon.png" sizes="32x32" />
 <link rel="icon" href="https://psychic-test.com/wp-content/uploads/2026/03/site_30_favicon.png" sizes="192x192" />
@@ -346,9 +346,10 @@ h1 em{font-style:italic;font-weight:300;color:var(--accent-deep)}
 }
 
 </style>
-<link rel="alternate" hreflang="en" href="https://psychic-test.com/talk-to-a-psychic/">
-<link rel="alternate" hreflang="pt-BR" href="https://pt.psychic-test.com/talk-to-a-psychic/">
-<link rel="alternate" hreflang="x-default" href="https://psychic-test.com/talk-to-a-psychic/">
+<!-- i18n hreflang (WP-Net-Control) -->
+<link rel="alternate" hreflang="en" href="https://psychic-test.com/talk-to-a-psychic/" />
+<link rel="alternate" hreflang="pt" href="https://pt.psychic-test.com/talk-to-a-psychic/" />
+<link rel="alternate" hreflang="x-default" href="https://psychic-test.com/talk-to-a-psychic/" />
 </head>
 <body class="wp-singular page-template page-template-template-consult page-template-template-consult-php page page-id-96 wp-theme-psychic-testcom-theme ptc-consult">
 
@@ -357,6 +358,7 @@ h1 em{font-style:italic;font-weight:300;color:var(--accent-deep)}
     <a class="logo" href="https://psychic-test.com/"><span class="logo-mark"></span>Psychic Test</a>
     <nav class="header-nav">
       <a href="https://psychic-test.com/">All tests</a>
+      <a href="https://psychic-test.com/specialists/">Specialists</a>
       <a href="https://psychic-test.com/contact/" class="btn btn-secondary">Contact</a>
     </nav>
   </div>
@@ -381,83 +383,43 @@ h1 em{font-style:italic;font-weight:300;color:var(--accent-deep)}
         <p class="section-sub">Every reader is vetted and experienced. Not sure who fits? <a href="https://psychic-test.com/take-the-test/" style="color:var(--accent-deep);font-weight:600">Take the matching test &rarr;</a></p>
       </div>
       <div class="spec-grid">
-                <a class="spec-card" href="https://psychic-test.com/contact/">
-          <div class="spec-photo" style="background-image:url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&#038;q=80')"></div>
+                <a class="spec-card" href="https://psychic-test.com/specialists/elena-marsh/" data-nebula-preserve="1">           <div class="spec-photo" style="background-image:url('/wp-content/uploads/2026/10/elena-marsh.webp')"></div>
           <div class="spec-info">
             <div class="spec-name">Elena Marsh</div>
             <div class="spec-badge">Love &amp; Relationships</div>
             <div class="spec-meta">Love &amp; Relationships · 19 yrs</div>
-            <span class="spec-connect">Connect with Elena              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            <span class="spec-connect">View Elena&rsquo;s profile
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </span>
           </div>
         </a>
-                <a class="spec-card" href="https://psychic-test.com/contact/">
-          <div class="spec-photo" style="background-image:url('https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&#038;q=80')"></div>
+                <a class="spec-card" href="https://psychic-test.com/specialists/matilda-oak/" data-nebula-preserve="1">           <div class="spec-photo" style="background-image:url('/wp-content/uploads/2026/10/matilda-oak.webp')"></div>
           <div class="spec-info">
             <div class="spec-name">Matilda Oak</div>
             <div class="spec-badge">Career &amp; Decisions</div>
             <div class="spec-meta">Career &amp; Decisions · 14 yrs</div>
-            <span class="spec-connect">Connect with Matilda              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            <span class="spec-connect">View Matilda&rsquo;s profile
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </span>
           </div>
         </a>
-                <a class="spec-card" href="https://psychic-test.com/contact/">
-          <div class="spec-photo" style="background-image:url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&#038;q=80')"></div>
+                <a class="spec-card" href="https://psychic-test.com/specialists/nova-bennett/" data-nebula-preserve="1">           <div class="spec-photo" style="background-image:url('/wp-content/uploads/2026/10/nova-bennett.webp')"></div>
           <div class="spec-info">
             <div class="spec-name">Nova Bennett</div>
             <div class="spec-badge">Tarot &amp; Intuition</div>
             <div class="spec-meta">Tarot &amp; Intuitive · 9 yrs</div>
-            <span class="spec-connect">Connect with Nova              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            <span class="spec-connect">View Nova&rsquo;s profile
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </span>
           </div>
         </a>
-                <a class="spec-card" href="https://psychic-test.com/contact/">
-          <div class="spec-photo" style="background-image:url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&#038;q=80')"></div>
+                <a class="spec-card" href="https://psychic-test.com/specialists/ruth-callahan/" data-nebula-preserve="1">           <div class="spec-photo" style="background-image:url('/wp-content/uploads/2026/10/ruth-callahan.webp')"></div>
           <div class="spec-info">
             <div class="spec-name">Ruth Callahan</div>
             <div class="spec-badge">Mediumship &amp; Grief</div>
             <div class="spec-meta">Mediumship &amp; Grief · 27 yrs</div>
-            <span class="spec-connect">Connect with Ruth              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </span>
-          </div>
-        </a>
-                <a class="spec-card" href="https://psychic-test.com/contact/">
-          <div class="spec-photo" style="background-image:url('https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&#038;q=80')"></div>
-          <div class="spec-info">
-            <div class="spec-name">Priya Shah</div>
-            <div class="spec-badge">Astrology</div>
-            <div class="spec-meta">Vedic Astrology · 18 yrs</div>
-            <span class="spec-connect">Connect with Priya              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </span>
-          </div>
-        </a>
-                <a class="spec-card" href="https://psychic-test.com/contact/">
-          <div class="spec-photo" style="background-image:url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&#038;q=80')"></div>
-          <div class="spec-info">
-            <div class="spec-name">Celeste Amari</div>
-            <div class="spec-badge">Dreams &amp; Empath</div>
-            <div class="spec-meta">Dreams &amp; Shadow · 16 yrs</div>
-            <span class="spec-connect">Connect with Celeste              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </span>
-          </div>
-        </a>
-                <a class="spec-card" href="https://psychic-test.com/contact/">
-          <div class="spec-photo" style="background-image:url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&#038;q=80')"></div>
-          <div class="spec-info">
-            <div class="spec-name">Isadora Vale</div>
-            <div class="spec-badge">Natal Charts</div>
-            <div class="spec-meta">Natal Charts · 22 yrs</div>
-            <span class="spec-connect">Connect with Isadora              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </span>
-          </div>
-        </a>
-                <a class="spec-card" href="https://psychic-test.com/contact/">
-          <div class="spec-photo" style="background-image:url('https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=400&#038;q=80')"></div>
-          <div class="spec-info">
-            <div class="spec-name">August Wren</div>
-            <div class="spec-badge">Energy &amp; Empath</div>
-            <div class="spec-meta">Energy &amp; Empath · 11 yrs</div>
-            <span class="spec-connect">Connect with August              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            <span class="spec-connect">View Ruth&rsquo;s profile
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </span>
           </div>
         </a>
@@ -489,11 +451,12 @@ h1 em{font-style:italic;font-weight:300;color:var(--accent-deep)}
   <span>© 2026 Psychic Test · For entertainment & self-reflection</span>
   <span class="footer-links">
     <a href="https://psychic-test.com/">All tests</a>
+    <a href="https://psychic-test.com/specialists/">Specialists</a>
     <a href="https://psychic-test.com/faq/">FAQ</a>
     <a href="https://psychic-test.com/privacy-policy/">Privacy</a>
     <a href="https://psychic-test.com/terms/">Terms</a>
   </span>
-</footer>
+<!-- i18n switcher (WP-Net-Control) --><div class="lang-switcher" style="text-align:center;padding:12px 0;font-size:14px;opacity:.85">🌐 <strong style="color:inherit">EN</strong> · <a href="https://pt.psychic-test.com/talk-to-a-psychic/" style="color:inherit;text-decoration:underline">PT</a></div></footer>
 <div class="disclaimer-note">Readings are for entertainment and personal reflection and are not a substitute for professional medical, legal, financial or psychological advice. You must be 18 or older to request a reading.</div>
 
 <script type="speculationrules">
@@ -501,7 +464,7 @@ h1 em{font-style:italic;font-weight:300;color:var(--accent-deep)}
 </script>
 <script id="ptc-nav-js" src="https://psychic-test.com/wp-content/themes/psychic-testcom-theme/assets/js/navigation.js?ver=2.0.0"></script>
 <script id="wp-emoji-settings" type="application/json">
-{"baseUrl":"https://s.w.org/images/core/emoji/17.0.2/72x72/","ext":".png","svgUrl":"https://s.w.org/images/core/emoji/17.0.2/svg/","svgExt":".svg","source":{"concatemoji":"https://psychic-test.com/wp-includes/js/wp-emoji-release.min.js?ver=7.1.3"}}
+{"baseUrl":"https://s.w.org/images/core/emoji/17.0.2/72x72/","ext":".png","svgUrl":"https://s.w.org/images/core/emoji/17.0.2/svg/","svgExt":".svg","source":{"concatemoji":"https://psychic-test.com/wp-includes/js/wp-emoji-release.min.js?ver=7.1.4"}}
 </script>
 <script type="module">
 /*! This file is auto-generated */

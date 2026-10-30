@@ -1,0 +1,543 @@
+<?php
+/**
+ * Psychic Test — multi-test hub data + shared design system + React engine.
+ * One source of truth for: specialists, every test config, the design CSS,
+ * and the inline React quiz/cards engine. Used by front-page.php,
+ * template-test.php and template-consult.php.
+ */
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+/** Consultation funnel URL (every test result / CTA points here). */
+function ptc_consult_url() {
+	return home_url( '/talk-to-a-psychic/' );
+}
+
+/** Shared specialist roster. `cats` map a specialist to the tests that recommend them. */
+function ptc_specialists() {
+	return array(
+		array( 'id' => 0, 'name' => 'Elena Marsh',   'meta' => 'Love & Relationships · 19 yrs', 'photo' => 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&q=80', 'cats' => array( 'love', 'clairsentient', 'reunion' ) ),
+		array( 'id' => 1, 'name' => 'Matilda Oak',   'meta' => 'Career & Decisions · 14 yrs',    'photo' => 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80', 'cats' => array( 'career', 'claircognizant', 'knower', 'intuition' ) ),
+		array( 'id' => 2, 'name' => 'Nova Bennett',  'meta' => 'Tarot & Intuitive · 9 yrs',      'photo' => 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80', 'cats' => array( 'tarot', 'intuition', 'esp', 'clairvoyant', 'seer' ) ),
+		array( 'id' => 3, 'name' => 'Ruth Callahan', 'meta' => 'Mediumship & Grief · 27 yrs',    'photo' => 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80', 'cats' => array( 'mediumship', 'grief', 'ancestor', 'clairaudient', 'medium' ) ),
+		array( 'id' => 4, 'name' => 'Priya Shah',    'meta' => 'Vedic Astrology · 18 yrs',       'photo' => 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&q=80', 'cats' => array( 'astrology', 'love', 'newchapter', 'teacher' ) ),
+		array( 'id' => 5, 'name' => 'Celeste Amari', 'meta' => 'Dreams & Shadow · 16 yrs',       'photo' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80', 'cats' => array( 'dreams', 'empath', 'shadow', 'guardian', 'selflove' ) ),
+		array( 'id' => 6, 'name' => 'Isadora Vale',  'meta' => 'Natal Charts · 22 yrs',          'photo' => 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80', 'cats' => array( 'astrology', 'guide', 'animal', 'patience', 'reader' ) ),
+		array( 'id' => 7, 'name' => 'August Wren',   'meta' => 'Energy & Empath · 11 yrs',       'photo' => 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=400&q=80', 'cats' => array( 'empath', 'energy', 'telepathy', 'aura', 'healer' ) ),
+	);
+}
+
+/**
+ * All tests, keyed by page slug. Fully data-driven — the engine needs no
+ * per-test JavaScript. Each option carries `tags` (points toward a result key,
+ * for archetype tests) and/or `pts` (a 0-3 strength score, for level tests).
+ */
+function ptc_tests() {
+	$tests = array();
+
+	/* 1 — Psychic Abilities (the "clair" senses) — archetype */
+	$tests['psychic-test'] = array(
+		'nav'      => 'Psychic Abilities',
+		'card'     => 'What Are Your Psychic Abilities?',
+		'blurb'    => 'Discover which of the four "clair" senses — sight, knowing, feeling or hearing — is strongest in you.',
+		'tag'      => '7 questions · 3 min',
+		'glyph'    => 'eye',
+		'title'    => 'What Are Your Psychic Abilities?',
+		'meta_title' => 'Free Psychic Abilities Test — Which Clair Sense Is Yours? | Psychic Test',
+		'meta_desc'  => 'Take the free psychic abilities test to find out whether you are clairvoyant, claircognizant, clairsentient or clairaudient — and which reader fits your gift.',
+		'eyebrow'  => 'Free · 7 questions · 3 minutes',
+		'lede'     => 'A short, honest test to reveal your dominant psychic channel — and the kind of reader who can help you develop it.',
+		'engine'   => 'quiz',
+		'mode'     => 'archetype',
+		'questions' => array(
+			array( 'id' => 'q1', 'prompt' => 'When you walk into a room full of people, what hits you *first?*', 'sub' => 'Trust your first instinct.', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'A picture or a scene forms in my mind', 'tags' => array( 'clairvoyant' => 2 ) ),
+				array( 'label' => "I just *know* something about someone", 'tags' => array( 'claircognizant' => 2 ) ),
+				array( 'label' => 'I feel the mood in my body', 'tags' => array( 'clairsentient' => 2 ) ),
+				array( 'label' => 'A word, name or phrase pops into my head', 'tags' => array( 'clairaudient' => 2 ) ),
+			) ),
+			array( 'id' => 'q2', 'prompt' => 'How do your strongest hunches usually arrive?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'As vivid images, symbols or dreams', 'tags' => array( 'clairvoyant' => 2 ) ),
+				array( 'label' => 'As sudden certainty, no explanation', 'tags' => array( 'claircognizant' => 2 ) ),
+				array( 'label' => 'As a gut feeling or physical sensation', 'tags' => array( 'clairsentient' => 2 ) ),
+				array( 'label' => 'As an inner voice or a song stuck on repeat', 'tags' => array( 'clairaudient' => 2 ) ),
+			) ),
+			array( 'id' => 'q3', 'prompt' => 'When you remember a strong memory, it comes back mostly as…', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'What I saw', 'tags' => array( 'clairvoyant' => 1 ) ),
+				array( 'label' => 'What I understood', 'tags' => array( 'claircognizant' => 1 ) ),
+				array( 'label' => 'What I felt', 'tags' => array( 'clairsentient' => 1 ) ),
+				array( 'label' => 'What was said', 'tags' => array( 'clairaudient' => 1 ) ),
+			) ),
+			array( 'id' => 'q4', 'prompt' => 'Have you ever known who was calling before you looked?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Often — I picture their face', 'tags' => array( 'clairvoyant' => 1 ) ),
+				array( 'label' => "Yes — I just know it's them", 'tags' => array( 'claircognizant' => 2 ) ),
+				array( 'label' => 'I get a feeling first', 'tags' => array( 'clairsentient' => 1 ) ),
+				array( 'label' => 'I sometimes hear their name', 'tags' => array( 'clairaudient' => 1 ) ),
+			) ),
+			array( 'id' => 'q5', 'prompt' => 'Which of these would you most trust in a hard decision?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'A dream or a recurring image', 'tags' => array( 'clairvoyant' => 2 ) ),
+				array( 'label' => 'A clear inner conviction', 'tags' => array( 'claircognizant' => 2 ) ),
+				array( 'label' => "My body's yes-or-no", 'tags' => array( 'clairsentient' => 2 ) ),
+				array( 'label' => 'Advice that seems to arrive from nowhere', 'tags' => array( 'clairaudient' => 2 ) ),
+			) ),
+			array( 'id' => 'q6', 'prompt' => 'How open are you to developing this further?', 'sub' => 'There are no wrong answers.', 'type' => 'scale' ),
+			array( 'id' => 'q7', 'prompt' => 'Do others describe you as unusually perceptive?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Yes — I notice things before others', 'tags' => array( 'clairvoyant' => 1, 'clairsentient' => 1 ) ),
+				array( 'label' => 'Yes — I "read" people well', 'tags' => array( 'claircognizant' => 1, 'clairsentient' => 1 ) ),
+				array( 'label' => 'Sometimes', 'tags' => array( 'clairaudient' => 1 ) ),
+				array( 'label' => "I'm only starting to notice it", 'tags' => array( 'clairvoyant' => 1 ) ),
+			) ),
+		),
+		'results'  => array(
+			'clairvoyant'   => array( 'name' => 'Clairvoyant — Clear Seeing', 'kicker' => 'You receive guidance as images, symbols and inner vision', 'body' => array( 'Your psychic channel is visual. Insight reaches you as pictures, colours, symbols and dreams — you "see" more than you can explain. This is the gift most people mean when they say "psychic".', 'A clairvoyant or tarot-based reader will help you interpret the images you already receive and trust them sooner.' ), 'traits' => array( 'Your sense' => 'Sight', 'Grows with' => 'Imagery work', 'Reader fit' => 'Clairvoyant / Tarot' ), 'cats' => array( 'clairvoyant', 'tarot' ) ),
+			'claircognizant' => array( 'name' => 'Claircognizant — Clear Knowing', 'kicker' => 'Truth arrives as sudden, unexplained certainty', 'body' => array( 'You simply know things — without images, feelings or a chain of logic. Ideas and answers "download" fully formed. It can feel so ordinary you dismiss it, but it is a genuine and precise gift.', 'A grounded, direct reader helps you separate real knowing from anxious over-thinking.' ), 'traits' => array( 'Your sense' => 'Knowing', 'Grows with' => 'Journalling', 'Reader fit' => 'Intuitive / Oracle' ), 'cats' => array( 'claircognizant', 'intuition' ) ),
+			'clairsentient' => array( 'name' => 'Clairsentient — Clear Feeling', 'kicker' => 'You read the world through your body and emotions', 'body' => array( 'You feel energy — moods, atmospheres, other people\'s pain and joy — physically. You are almost certainly an empath. Your body is your instrument, and it is rarely wrong.', 'An empathic or energy-focused reader will help you tell your own feelings apart from those you pick up.' ), 'traits' => array( 'Your sense' => 'Feeling', 'Grows with' => 'Grounding', 'Reader fit' => 'Empath / Energy' ), 'cats' => array( 'clairsentient', 'empath' ) ),
+			'clairaudient'  => array( 'name' => 'Clairaudient — Clear Hearing', 'kicker' => 'Guidance comes as words, names and inner sound', 'body' => array( 'You receive messages as an inner voice, a name, a phrase or a song that "won\'t leave". This is the channel most common in mediumship — hearing what others cannot.', 'A medium or clairaudient reader will help you steady the signal and understand who is speaking.' ), 'traits' => array( 'Your sense' => 'Hearing', 'Grows with' => 'Meditation', 'Reader fit' => 'Medium / Clairaudient' ), 'cats' => array( 'clairaudient', 'mediumship' ) ),
+		),
+	);
+
+	/* 2 — ESP / Zener cards — level (cards engine) */
+	$tests['esp-test'] = array(
+		'nav'      => 'ESP Test',
+		'card'     => 'ESP & Zener Card Test',
+		'blurb'    => 'The classic clairvoyance experiment. Sense the hidden card across 15 rounds and score your extrasensory hit-rate.',
+		'tag'      => '15 rounds · 4 min',
+		'glyph'    => 'cards',
+		'title'    => 'ESP & Zener Card Test',
+		'meta_title' => 'Free ESP Test — Online Zener Cards | Psychic Test',
+		'meta_desc'  => 'Take the original ESP test online with Zener cards. Sense the hidden symbol across 15 rounds, get your clairvoyance score, and find a reader to develop your gift.',
+		'eyebrow'  => 'Free · 15 rounds · 4 minutes',
+		'lede'     => 'Dr. Rhine\'s classic experiment, online. Clear your mind, sense the hidden card, and see how far past chance your score lands.',
+		'engine'   => 'cards',
+		'mode'     => 'level',
+		'cards'    => array(
+			'rounds' => 15,
+			'chance' => 20,
+			'prompt' => 'Which symbol is on the hidden card?',
+			'sub'    => 'Don\'t think it through — sense it.',
+			'symbols' => array(
+				array( 'k' => 'circle', 'label' => 'Circle' ),
+				array( 'k' => 'cross',  'label' => 'Cross' ),
+				array( 'k' => 'waves',  'label' => 'Waves' ),
+				array( 'k' => 'square', 'label' => 'Square' ),
+				array( 'k' => 'star',   'label' => 'Star' ),
+			),
+		),
+		'levels'   => array(
+			array( 'min' => 47, 'name' => 'Strong ESP Signal', 'kicker' => 'Well above chance — a genuine hit-rate', 'body' => array( 'You scored far beyond the 20% you\'d expect from luck alone. In Rhine\'s lab, sustained results like this marked a real sensitive. Your extrasensory channel is open and responsive.', 'Work with a clairvoyant or intuitive reader — they can help you tell a true "hit" from a hopeful guess and sharpen the signal.' ), 'traits' => array( 'Your reading' => 'Above chance', 'Channel' => 'Open', 'Reader fit' => 'Clairvoyant' ), 'cats' => array( 'esp', 'clairvoyant' ) ),
+			array( 'min' => 27, 'name' => 'Emerging Sensitivity', 'kicker' => 'A little above chance — worth developing', 'body' => array( 'You edged past pure luck. That flicker above the baseline is exactly where most sensitives begin. With practice and feedback, small edges tend to grow.', 'A patient intuitive reader can give you the practice framework and honest feedback that turns a flicker into a reliable sense.' ), 'traits' => array( 'Your reading' => 'Slight edge', 'Channel' => 'Emerging', 'Reader fit' => 'Intuitive' ), 'cats' => array( 'esp', 'intuition' ) ),
+			array( 'min' => 0,  'name' => 'Analytical Mind', 'kicker' => 'Around chance — your gift may be elsewhere', 'body' => array( 'This round landed near the 20% baseline. That\'s completely normal — a single short run is noisy, and card-guessing simply isn\'t everyone\'s channel. Your intuition may speak through feeling or knowing instead.', 'Try the Psychic Abilities test to find your real channel, or talk to a reader who can point you toward the practice that fits you.' ), 'traits' => array( 'Your reading' => 'Near chance', 'Channel' => 'Try another', 'Reader fit' => 'Intuitive' ), 'cats' => array( 'intuition', 'esp' ) ),
+		),
+	);
+
+	/* 3 — Empath — level */
+	$tests['empath-test'] = array(
+		'nav'      => 'Empath Test',
+		'card'     => 'Are You an Empath?',
+		'blurb'    => 'Some people don\'t just notice emotion — they absorb it. Find out how empathic you really are.',
+		'tag'      => '8 questions · 3 min',
+		'glyph'    => 'heart',
+		'title'    => 'Are You an Empath?',
+		'meta_title' => 'Free Empath Test — Are You an Empath? | Psychic Test',
+		'meta_desc'  => 'Take the free empath test to find out if you absorb other people\'s emotions and energy — and learn how to protect and use your sensitivity with a reader\'s help.',
+		'eyebrow'  => 'Free · 8 questions · 3 minutes',
+		'lede'     => 'Being sensitive is a spectrum. Answer honestly to see where you land — and how to work with your gift instead of being drained by it.',
+		'engine'   => 'quiz',
+		'mode'     => 'level',
+		'questions' => array(
+			array( 'id' => 'q1', 'prompt' => 'Do you pick up on how others feel *before* they say a word?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Almost always', 'pts' => 3 ), array( 'label' => 'Often', 'pts' => 2 ), array( 'label' => 'Sometimes', 'pts' => 1 ), array( 'label' => 'Rarely', 'pts' => 0 ),
+			) ),
+			array( 'id' => 'q2', 'prompt' => 'After a busy crowd, how do you feel?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Completely drained — I need to hide', 'pts' => 3 ), array( 'label' => 'Tired and over-stimulated', 'pts' => 2 ), array( 'label' => 'A bit wiped', 'pts' => 1 ), array( 'label' => 'Energised', 'pts' => 0 ),
+			) ),
+			array( 'id' => 'q3', 'prompt' => "Can someone else's bad mood become your own?", 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Instantly — I take it on', 'pts' => 3 ), array( 'label' => 'Yes, easily', 'pts' => 2 ), array( 'label' => 'Occasionally', 'pts' => 1 ), array( 'label' => 'Not really', 'pts' => 0 ),
+			) ),
+			array( 'id' => 'q4', 'prompt' => 'How do sad films, news or stories affect you?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Deeply — I carry it for days', 'pts' => 3 ), array( 'label' => 'Strongly in the moment', 'pts' => 2 ), array( 'label' => 'A little', 'pts' => 1 ), array( 'label' => "I stay detached", 'pts' => 0 ),
+			) ),
+			array( 'id' => 'q5', 'prompt' => 'Do people you barely know tell you their secrets?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Constantly — strangers open up to me', 'pts' => 3 ), array( 'label' => 'Fairly often', 'pts' => 2 ), array( 'label' => 'Now and then', 'pts' => 1 ), array( 'label' => 'Not usually', 'pts' => 0 ),
+			) ),
+			array( 'id' => 'q6', 'prompt' => 'Do you sense the "energy" of places and rooms?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Yes — some places I can\'t stay in', 'pts' => 3 ), array( 'label' => 'Often', 'pts' => 2 ), array( 'label' => 'Sometimes', 'pts' => 1 ), array( 'label' => 'No', 'pts' => 0 ),
+			) ),
+			array( 'id' => 'q7', 'prompt' => 'How much do you need alone-time to recharge?', 'sub' => '', 'type' => 'scale' ),
+			array( 'id' => 'q8', 'prompt' => 'Do you find it hard to say no to someone in need?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Almost impossible', 'pts' => 3 ), array( 'label' => 'Very hard', 'pts' => 2 ), array( 'label' => 'A little', 'pts' => 1 ), array( 'label' => "I'm fine with it", 'pts' => 0 ),
+			) ),
+		),
+		'levels'   => array(
+			array( 'min' => 75, 'name' => 'Deeply Attuned Empath', 'kicker' => 'You absorb energy as if it were your own', 'body' => array( 'You don\'t just sense emotion — you take it on. This is a profound clairsentient gift, but without boundaries it becomes exhausting. Learning to shield and to ground is not optional for you; it\'s essential.', 'An energy or empath-focused reader can teach you protection techniques and help you tell which feelings are actually yours.' ), 'traits' => array( 'Your type' => 'Full empath', 'Priority' => 'Shielding', 'Reader fit' => 'Energy / Empath' ), 'cats' => array( 'empath', 'energy' ) ),
+			array( 'min' => 45, 'name' => 'Natural Empath', 'kicker' => 'Sensitive, caring, tuned to others', 'body' => array( 'You feel other people clearly and care deeply — a real empath. You can carry others\' moods, so the work is balance: staying open without being flooded.', 'A reader who works with sensitivity can help you use your gift on purpose and set the boundaries that keep it a strength.' ), 'traits' => array( 'Your type' => 'Empath', 'Priority' => 'Boundaries', 'Reader fit' => 'Empath / Dreams' ), 'cats' => array( 'empath', 'dreams' ) ),
+			array( 'min' => 0,  'name' => 'Grounded & Sensitive', 'kicker' => 'Compassionate, but you hold your own centre', 'body' => array( 'You notice how others feel without losing yourself in it — a healthy, grounded sensitivity many people would envy. Your intuition likely speaks through a quieter channel.', 'Curious where your real gift lies? Try the Psychic Abilities test, or ask a reader what your natural strength is.' ), 'traits' => array( 'Your type' => 'Grounded', 'Priority' => 'Explore', 'Reader fit' => 'Intuitive' ), 'cats' => array( 'intuition', 'empath' ) ),
+		),
+	);
+
+	/* 4 — Intuition strength — level */
+	$tests['intuition-quiz'] = array(
+		'nav'      => 'Intuition Test',
+		'card'     => 'How Strong Is Your Intuition?',
+		'blurb'    => 'Measure the quiet inner compass that tells you yes or no before your mind catches up.',
+		'tag'      => '7 questions · 3 min',
+		'glyph'    => 'compass',
+		'title'    => 'How Strong Is Your Intuition?',
+		'meta_title' => 'Free Intuition Test — How Strong Is Your Gut Instinct? | Psychic Test',
+		'meta_desc'  => 'Take the free intuition test to measure how well you read your gut instinct — and learn how a reader can help you trust and strengthen it.',
+		'eyebrow'  => 'Free · 7 questions · 3 minutes',
+		'lede'     => 'Everyone has intuition. The question is how loudly yours speaks — and how often you listen.',
+		'engine'   => 'quiz',
+		'mode'     => 'level',
+		'questions' => array(
+			array( 'id' => 'q1', 'prompt' => 'When your gut and your logic disagree, which usually turns out right?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'My gut, almost every time', 'pts' => 3 ), array( 'label' => 'Usually my gut', 'pts' => 2 ), array( 'label' => "It's mixed", 'pts' => 1 ), array( 'label' => 'My logic', 'pts' => 0 ),
+			) ),
+			array( 'id' => 'q2', 'prompt' => 'Have you ever avoided something bad because of a "bad feeling"?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Yes, more than once', 'pts' => 3 ), array( 'label' => 'Once, clearly', 'pts' => 2 ), array( 'label' => 'Maybe', 'pts' => 1 ), array( 'label' => 'Never', 'pts' => 0 ),
+			) ),
+			array( 'id' => 'q3', 'prompt' => 'Do first impressions of people prove accurate for you?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Almost always', 'pts' => 3 ), array( 'label' => 'Often', 'pts' => 2 ), array( 'label' => 'Sometimes', 'pts' => 1 ), array( 'label' => 'Rarely', 'pts' => 0 ),
+			) ),
+			array( 'id' => 'q4', 'prompt' => 'How often do you think of someone right before they contact you?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'All the time', 'pts' => 3 ), array( 'label' => 'Regularly', 'pts' => 2 ), array( 'label' => 'Occasionally', 'pts' => 1 ), array( 'label' => 'Never noticed', 'pts' => 0 ),
+			) ),
+			array( 'id' => 'q5', 'prompt' => 'When you ignore your instinct, what happens?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'I regret it — it was right', 'pts' => 3 ), array( 'label' => 'Often regret it', 'pts' => 2 ), array( 'label' => 'No pattern', 'pts' => 1 ), array( 'label' => "I don't ignore or notice it", 'pts' => 0 ),
+			) ),
+			array( 'id' => 'q6', 'prompt' => 'How much do you trust your gut on a big decision today?', 'sub' => '', 'type' => 'scale' ),
+			array( 'id' => 'q7', 'prompt' => 'Do you get physical signals — chills, a drop in the stomach — with a strong hunch?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Yes, clearly', 'pts' => 3 ), array( 'label' => 'Sometimes', 'pts' => 2 ), array( 'label' => 'Rarely', 'pts' => 1 ), array( 'label' => 'No', 'pts' => 0 ),
+			) ),
+		),
+		'levels'   => array(
+			array( 'min' => 70, 'name' => 'Highly Intuitive', 'kicker' => 'Your inner compass is loud — and usually right', 'body' => array( 'Your intuition is a finely tuned instrument. You sense outcomes and read people well before the evidence arrives. The only risk is doubting it under pressure and talking yourself out of what you already know.', 'A reader can act as a sounding board — confirming your strongest hits so you learn to trust the signal instantly.' ), 'traits' => array( 'Your level' => 'High', 'Watch for' => 'Self-doubt', 'Reader fit' => 'Intuitive / Tarot' ), 'cats' => array( 'intuition', 'tarot' ) ),
+			array( 'min' => 38, 'name' => 'Developing Intuition', 'kicker' => 'The signal is there — you\'re learning to hear it', 'body' => array( 'You get clear intuitive nudges but don\'t always act on them yet. This is the most common — and most rewarding — place to be, because intuition grows fastest exactly here, with attention and feedback.', 'A reader can help you spot which nudges to trust and give you simple practices to strengthen the channel.' ), 'traits' => array( 'Your level' => 'Developing', 'Grows with' => 'Practice', 'Reader fit' => 'Intuitive' ), 'cats' => array( 'intuition', 'esp' ) ),
+			array( 'min' => 0,  'name' => 'Logic-Led', 'kicker' => 'You lead with your head — for now', 'body' => array( 'You trust evidence over instinct, which serves you well. Intuition is a muscle, though, and yours is simply under-used rather than absent. Small experiments — noticing first impressions and checking them later — wake it up.', 'A reader can show you what your intuition feels like when it speaks, so you stop missing it.' ), 'traits' => array( 'Your level' => 'Emerging', 'Grows with' => 'Noticing', 'Reader fit' => 'Intuitive' ), 'cats' => array( 'intuition' ) ),
+		),
+	);
+
+	/* 5 — Aura colour — archetype */
+	$tests['aura-color-test'] = array(
+		'nav'      => 'Aura Color',
+		'card'     => 'What Color Is Your Aura?',
+		'blurb'    => 'The energy field you carry has a dominant colour. Find yours and what it says about you.',
+		'tag'      => '6 questions · 2 min',
+		'glyph'    => 'aura',
+		'title'    => 'What Color Is Your Aura?',
+		'meta_title' => 'Free Aura Color Test — What Is Your Aura Color? | Psychic Test',
+		'meta_desc'  => 'Take the free aura color test to reveal your dominant energy colour and its meaning — then talk to an energy reader about what your aura is telling you.',
+		'eyebrow'  => 'Free · 6 questions · 2 minutes',
+		'lede'     => 'No two auras are the same. Answer six questions to reveal the colour your energy leans toward — and what it means.',
+		'engine'   => 'quiz',
+		'mode'     => 'archetype',
+		'questions' => array(
+			array( 'id' => 'q1', 'prompt' => 'Which word feels most like *you* on a good day?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Wise', 'tags' => array( 'violet' => 2 ) ), array( 'label' => 'Calm', 'tags' => array( 'blue' => 2 ) ), array( 'label' => 'Warm', 'tags' => array( 'green' => 2 ) ), array( 'label' => 'Radiant', 'tags' => array( 'gold' => 2 ) ),
+			) ),
+			array( 'id' => 'q2', 'prompt' => 'How do people tend to describe your presence?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Deep and a little mysterious', 'tags' => array( 'violet' => 2 ) ), array( 'label' => 'Soothing and trustworthy', 'tags' => array( 'blue' => 2 ) ), array( 'label' => 'Nurturing and grounding', 'tags' => array( 'green' => 2 ) ), array( 'label' => 'Bright and uplifting', 'tags' => array( 'gold' => 2 ) ),
+			) ),
+			array( 'id' => 'q3', 'prompt' => 'Where do you feel most at home?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Somewhere quiet and sacred', 'tags' => array( 'violet' => 1 ) ), array( 'label' => 'Near water', 'tags' => array( 'blue' => 1 ) ), array( 'label' => 'In nature or a garden', 'tags' => array( 'green' => 1 ) ), array( 'label' => 'In sunlight, among people', 'tags' => array( 'gold' => 1 ) ),
+			) ),
+			array( 'id' => 'q4', 'prompt' => 'What do others come to you for?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Insight and perspective', 'tags' => array( 'violet' => 2 ) ), array( 'label' => 'Honest, clear words', 'tags' => array( 'blue' => 2 ) ), array( 'label' => 'Comfort and care', 'tags' => array( 'green' => 2 ) ), array( 'label' => 'Energy and encouragement', 'tags' => array( 'gold' => 2 ) ),
+			) ),
+			array( 'id' => 'q5', 'prompt' => 'Pick the image that pulls at you:', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'A night sky full of stars', 'tags' => array( 'violet' => 2 ) ), array( 'label' => 'A still, deep lake', 'tags' => array( 'blue' => 2 ) ), array( 'label' => 'A forest after rain', 'tags' => array( 'green' => 2 ) ), array( 'label' => 'A sunrise over hills', 'tags' => array( 'gold' => 2 ) ),
+			) ),
+			array( 'id' => 'q6', 'prompt' => 'How connected do you feel to the spiritual side of life?', 'sub' => '', 'type' => 'scale' ),
+		),
+		'results'  => array(
+			'violet' => array( 'name' => 'Violet Aura', 'kicker' => 'Intuitive, spiritual, an old soul', 'body' => array( 'Violet is the colour of the visionary and the seeker. Your energy runs toward the mystical, the philosophical and the unseen. People sense depth in you — sometimes more than you let on.', 'You\'re a natural fit for spiritual and clairvoyant work. A reader can help you channel that depth toward the questions that matter to you now.' ), 'traits' => array( 'Element' => 'Spirit', 'Strength' => 'Vision', 'Reader fit' => 'Clairvoyant' ), 'cats' => array( 'aura', 'clairvoyant' ) ),
+			'blue'   => array( 'name' => 'Blue Aura', 'kicker' => 'Calm, honest, a natural communicator', 'body' => array( 'Blue is the colour of clarity and truth. Your energy is steady and reassuring; people trust you and tell you things. You value peace and speaking plainly.', 'An intuitive or mediumship reader will resonate with your clarity — and help you hear the guidance you\'re already half-aware of.' ), 'traits' => array( 'Element' => 'Water', 'Strength' => 'Clarity', 'Reader fit' => 'Intuitive' ), 'cats' => array( 'aura', 'intuition' ) ),
+			'green'  => array( 'name' => 'Green Aura', 'kicker' => 'Healing, grounded, deeply caring', 'body' => array( 'Green is the colour of the healer and the heart. Your energy nurtures and steadies everyone around you. You\'re happiest when others are cared for — which makes protecting your own energy the key work.', 'An energy or empath-focused reader will help you pour from a full cup instead of an empty one.' ), 'traits' => array( 'Element' => 'Earth', 'Strength' => 'Healing', 'Reader fit' => 'Energy / Empath' ), 'cats' => array( 'aura', 'empath' ) ),
+			'gold'   => array( 'name' => 'Gold Aura', 'kicker' => 'Radiant, warm, quietly powerful', 'body' => array( 'Gold is rare — the colour of enlightened warmth and inner strength. Your energy lifts a room. You lead by encouragement and carry a resilience others lean on.', 'A reader can help you aim that bright energy with intention, so you shine on purpose rather than for everyone else.' ), 'traits' => array( 'Element' => 'Light', 'Strength' => 'Radiance', 'Reader fit' => 'Astrology' ), 'cats' => array( 'aura', 'astrology' ) ),
+		),
+	);
+
+	/* 6 — Which type of psychic are you — archetype */
+	$tests['psychic-type-test'] = array(
+		'nav'      => 'Psychic Type',
+		'card'     => 'Which Type of Psychic Are You?',
+		'blurb'    => 'Seer, Knower, Healer or Medium — discover the practitioner archetype your gift is built for.',
+		'tag'      => '7 questions · 3 min',
+		'glyph'    => 'star',
+		'title'    => 'Which Type of Psychic Are You?',
+		'meta_title' => 'Free Psychic Type Test — What Kind of Psychic Are You? | Psychic Test',
+		'meta_desc'  => 'Take the free psychic type test to find your practitioner archetype — Seer, Knower, Healer or Medium — and the reader who mirrors your gift.',
+		'eyebrow'  => 'Free · 7 questions · 3 minutes',
+		'lede'     => 'Every gift has a natural shape. Find out which kind of psychic work fits you best.',
+		'engine'   => 'quiz',
+		'mode'     => 'archetype',
+		'questions' => array(
+			array( 'id' => 'q1', 'prompt' => 'What draws you to the psychic world in the first place?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Seeing what\'s coming', 'tags' => array( 'seer' => 2 ) ), array( 'label' => 'Understanding the truth of things', 'tags' => array( 'knower' => 2 ) ), array( 'label' => 'Helping people feel whole', 'tags' => array( 'healer' => 2 ) ), array( 'label' => 'Connecting with those who\'ve passed', 'tags' => array( 'medium' => 2 ) ),
+			) ),
+			array( 'id' => 'q2', 'prompt' => 'A friend is struggling. Your instinct is to…', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Tell them what I see ahead', 'tags' => array( 'seer' => 2 ) ), array( 'label' => 'Name what\'s really going on', 'tags' => array( 'knower' => 2 ) ), array( 'label' => 'Soothe their energy', 'tags' => array( 'healer' => 2 ) ), array( 'label' => 'Bring through a comforting message', 'tags' => array( 'medium' => 2 ) ),
+			) ),
+			array( 'id' => 'q3', 'prompt' => 'Which tool are you most curious about?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Tarot or a crystal ball', 'tags' => array( 'seer' => 2 ) ), array( 'label' => 'Pendulum or oracle', 'tags' => array( 'knower' => 1 ) ), array( 'label' => 'Reiki or crystals', 'tags' => array( 'healer' => 2 ) ), array( 'label' => 'Spirit contact / séance', 'tags' => array( 'medium' => 2 ) ),
+			) ),
+			array( 'id' => 'q4', 'prompt' => 'How does insight most often reach you?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Images and visions', 'tags' => array( 'seer' => 2 ) ), array( 'label' => 'Pure knowing', 'tags' => array( 'knower' => 2 ) ), array( 'label' => 'Feeling in the body', 'tags' => array( 'healer' => 2 ) ), array( 'label' => 'Words and presences', 'tags' => array( 'medium' => 2 ) ),
+			) ),
+			array( 'id' => 'q5', 'prompt' => 'What would people trust you with most?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Their future', 'tags' => array( 'seer' => 1 ) ), array( 'label' => 'Their hardest decision', 'tags' => array( 'knower' => 1 ) ), array( 'label' => 'Their pain', 'tags' => array( 'healer' => 1 ) ), array( 'label' => 'Their grief', 'tags' => array( 'medium' => 1 ) ),
+			) ),
+			array( 'id' => 'q6', 'prompt' => 'Which feels like the deepest calling?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'To reveal', 'tags' => array( 'seer' => 2 ) ), array( 'label' => 'To clarify', 'tags' => array( 'knower' => 2 ) ), array( 'label' => 'To heal', 'tags' => array( 'healer' => 2 ) ), array( 'label' => 'To connect', 'tags' => array( 'medium' => 2 ) ),
+			) ),
+			array( 'id' => 'q7', 'prompt' => 'How strong is the pull to practise this seriously?', 'sub' => '', 'type' => 'scale' ),
+		),
+		'results'  => array(
+			'seer'   => array( 'name' => 'The Seer', 'kicker' => 'You perceive what is coming', 'body' => array( 'Your gift is future-facing and visual. You work naturally with tarot, scrying and vision — revealing paths and possibilities. People seek you out to understand where things are heading.', 'A clairvoyant or tarot reader is your mirror. Sitting with one will show you how far your own seeing can reach.' ), 'traits' => array( 'Archetype' => 'Seer', 'Tools' => 'Tarot / Vision', 'Reader fit' => 'Clairvoyant' ), 'cats' => array( 'seer', 'tarot' ) ),
+			'knower' => array( 'name' => 'The Knower', 'kicker' => 'You cut straight to the truth', 'body' => array( 'Your gift is claircognizant — you simply know. You\'re the person who names what everyone else is dancing around. Your calling is clarity: helping people see the real question under the surface one.', 'A grounded intuitive reader will sharpen your knowing and help you deliver it with care.' ), 'traits' => array( 'Archetype' => 'Knower', 'Tools' => 'Oracle', 'Reader fit' => 'Intuitive' ), 'cats' => array( 'knower', 'intuition' ) ),
+			'healer' => array( 'name' => 'The Healer', 'kicker' => 'You mend energy and hearts', 'body' => array( 'Your gift lives in the body and the heart. You sense where energy is stuck and instinctively want to move it. Yours is the path of reiki, crystals and empathic care.', 'An energy or empath-focused reader will help you develop your healing without absorbing everyone\'s pain.' ), 'traits' => array( 'Archetype' => 'Healer', 'Tools' => 'Energy', 'Reader fit' => 'Energy / Empath' ), 'cats' => array( 'healer', 'empath' ) ),
+			'medium' => array( 'name' => 'The Medium', 'kicker' => 'You bridge this world and the next', 'body' => array( 'Your gift is connection across the veil. You catch words, names and presences others miss. This is the rarest and most tender path — bringing comfort from those who have passed.', 'A working medium can help you steady the signal and hold this gift safely.' ), 'traits' => array( 'Archetype' => 'Medium', 'Tools' => 'Spirit contact', 'Reader fit' => 'Mediumship' ), 'cats' => array( 'medium', 'mediumship' ) ),
+		),
+	);
+
+	/* 7 — Mediumship potential — level */
+	$tests['mediumship-test'] = array(
+		'nav'      => 'Mediumship',
+		'card'     => 'Do You Have Mediumship Potential?',
+		'blurb'    => 'Mediumship is the rarest gift — sensing those who have passed. Find out if you carry the seed of it.',
+		'tag'      => '7 questions · 3 min',
+		'glyph'    => 'moon',
+		'title'    => 'Do You Have Mediumship Potential?',
+		'meta_title' => 'Free Mediumship Test — Do You Have the Gift? | Psychic Test',
+		'meta_desc'  => 'Take the free mediumship test to discover whether you have the potential to sense spirit — and how a working medium can help you develop it safely.',
+		'eyebrow'  => 'Free · 7 questions · 3 minutes',
+		'lede'     => 'Mediumship can\'t be forced, but it can be recognised. Answer honestly to see whether the seed is in you.',
+		'engine'   => 'quiz',
+		'mode'     => 'level',
+		'questions' => array(
+			array( 'id' => 'q1', 'prompt' => 'Have you ever felt the presence of someone who has passed?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Yes, unmistakably', 'pts' => 3 ), array( 'label' => 'I think so', 'pts' => 2 ), array( 'label' => 'Maybe once', 'pts' => 1 ), array( 'label' => 'Never', 'pts' => 0 ),
+			) ),
+			array( 'id' => 'q2', 'prompt' => 'Do you notice signs — feathers, songs, numbers — that feel like messages?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Constantly', 'pts' => 3 ), array( 'label' => 'Often', 'pts' => 2 ), array( 'label' => 'Sometimes', 'pts' => 1 ), array( 'label' => 'No', 'pts' => 0 ),
+			) ),
+			array( 'id' => 'q3', 'prompt' => 'Do you catch movement, shadows or shapes from the corner of your eye?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Regularly', 'pts' => 3 ), array( 'label' => 'Now and then', 'pts' => 2 ), array( 'label' => 'Rarely', 'pts' => 1 ), array( 'label' => 'No', 'pts' => 0 ),
+			) ),
+			array( 'id' => 'q4', 'prompt' => 'Have you heard your name called when no one was there?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Yes, more than once', 'pts' => 3 ), array( 'label' => 'Once', 'pts' => 2 ), array( 'label' => 'Not sure', 'pts' => 1 ), array( 'label' => 'No', 'pts' => 0 ),
+			) ),
+			array( 'id' => 'q5', 'prompt' => 'Do vivid dreams of the departed ever bring you real information?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Yes — they feel like visits', 'pts' => 3 ), array( 'label' => 'Sometimes', 'pts' => 2 ), array( 'label' => 'Rarely', 'pts' => 1 ), array( 'label' => 'Never', 'pts' => 0 ),
+			) ),
+			array( 'id' => 'q6', 'prompt' => 'How drawn are you to comforting others through grief?', 'sub' => '', 'type' => 'scale' ),
+			array( 'id' => 'q7', 'prompt' => 'Do sudden emotions or knowings arrive that don\'t feel like your own?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Yes, clearly', 'pts' => 3 ), array( 'label' => 'Occasionally', 'pts' => 2 ), array( 'label' => 'Rarely', 'pts' => 1 ), array( 'label' => 'No', 'pts' => 0 ),
+			) ),
+		),
+		'levels'   => array(
+			array( 'min' => 68, 'name' => 'Strong Mediumistic Potential', 'kicker' => 'The signal is already reaching you', 'body' => array( 'You show several classic markers of mediumship — presence, signs, sound, visiting dreams. Gifts this open need care, not just curiosity. Untrained, they can feel frightening; trained, they become a source of comfort for others.', 'Please work with an experienced medium. They can help you open safely, set boundaries, and learn who is trying to reach you.' ), 'traits' => array( 'Potential' => 'Strong', 'Priority' => 'Safe training', 'Reader fit' => 'Mediumship' ), 'cats' => array( 'mediumship', 'clairaudient' ) ),
+			array( 'min' => 35, 'name' => 'Latent Sensitivity', 'kicker' => 'A seed is there, waiting', 'body' => array( 'You have flickers — a presence felt, a meaningful sign, a dream that lingered. This is how mediumship usually begins: quietly, easy to explain away. With gentle guidance it may grow, or it may settle into a strong intuition instead.', 'A medium can tell you whether what you\'re sensing is spirit contact or another gift — and how to explore it without fear.' ), 'traits' => array( 'Potential' => 'Latent', 'Priority' => 'Explore', 'Reader fit' => 'Mediumship' ), 'cats' => array( 'mediumship', 'dreams' ) ),
+			array( 'min' => 0,  'name' => 'A Different Gift', 'kicker' => 'Your channel likely lies elsewhere', 'body' => array( 'You didn\'t show the usual mediumship markers — which is completely normal; it\'s the rarest gift of all. That doesn\'t mean you\'re not intuitive. Your strength may simply be in feeling, knowing or seeing instead.', 'Try the Psychic Abilities test to find your real channel, or ask a reader where your natural gift lies.' ), 'traits' => array( 'Potential' => 'Elsewhere', 'Next' => 'Abilities test', 'Reader fit' => 'Intuitive' ), 'cats' => array( 'intuition', 'mediumship' ) ),
+		),
+	);
+
+	/* 8 — Telepathy (cards, sender framing) — level */
+	$tests['telepathy-test'] = array(
+		'nav'      => 'Telepathy',
+		'card'     => 'Test Your Telepathic Ability',
+		'blurb'    => 'A sender is holding an image in mind. Across 12 rounds, receive it — and score your mind-to-mind connection.',
+		'tag'      => '12 rounds · 4 min',
+		'glyph'    => 'link',
+		'title'    => 'Test Your Telepathic Ability',
+		'meta_title' => 'Free Telepathy Test Online — Can You Read Minds? | Psychic Test',
+		'meta_desc'  => 'Take the free online telepathy test. Receive the image a sender is holding across 12 rounds, score your ability, and find a reader to develop it.',
+		'eyebrow'  => 'Free · 12 rounds · 4 minutes',
+		'lede'     => 'Telepathy is reception, not effort. Settle, let an image arrive, and choose the one a sender is holding in mind.',
+		'engine'   => 'cards',
+		'mode'     => 'level',
+		'cards'    => array(
+			'rounds' => 12,
+			'chance' => 25,
+			'prompt' => 'Which image is the sender holding?',
+			'sub'    => 'Don\'t choose — let it come to you.',
+			'symbols' => array(
+				array( 'k' => 'star',   'label' => 'Star' ),
+				array( 'k' => 'waves',  'label' => 'Waves' ),
+				array( 'k' => 'circle', 'label' => 'Sun' ),
+				array( 'k' => 'cross',  'label' => 'Key' ),
+			),
+		),
+		'levels'   => array(
+			array( 'min' => 50, 'name' => 'Strong Receiver', 'kicker' => 'Well above chance — a real connection', 'body' => array( 'You received far more than luck predicts. Strong receivers often already sense what loved ones are feeling from a distance. Your mind-to-mind channel is open and worth developing with intention.', 'An energy or empath reader can help you distinguish true reception from imagination and strengthen the link.' ), 'traits' => array( 'Your result' => 'Above chance', 'Channel' => 'Open', 'Reader fit' => 'Energy / Empath' ), 'cats' => array( 'telepathy', 'empath' ) ),
+			array( 'min' => 33, 'name' => 'Occasional Receiver', 'kicker' => 'Flashes above the baseline', 'body' => array( 'You scored a little above chance — flashes of genuine reception mixed with noise. This is where telepathic ability usually starts. With a quiet mind and practice, the flashes come more often.', 'A reader can give you the receptive-state practices that turn flashes into a steadier signal.' ), 'traits' => array( 'Your result' => 'Slight edge', 'Channel' => 'Emerging', 'Reader fit' => 'Intuitive' ), 'cats' => array( 'telepathy', 'intuition' ) ),
+			array( 'min' => 0,  'name' => 'Quiet Channel', 'kicker' => 'Around chance today', 'body' => array( 'This run landed near the baseline — and a short session is noisy, so don\'t read too much into one result. Telepathy also asks for a very relaxed, receptive mind, which takes practice to reach.', 'Curious which gift is really yours? Try the Intuition or Empath test, or ask a reader for a place to start.' ), 'traits' => array( 'Your result' => 'Near chance', 'Try' => 'Again, relaxed', 'Reader fit' => 'Intuitive' ), 'cats' => array( 'intuition', 'telepathy' ) ),
+		),
+	);
+
+	/* 9 — Love psychic — archetype */
+	$tests['love-psychic-test'] = array(
+		'nav'      => 'Love Reading',
+		'card'     => 'What Does Your Love Future Hold?',
+		'blurb'    => 'Your heart already knows the theme of your next chapter. This test names it — and the reader who can guide it.',
+		'tag'      => '6 questions · 3 min',
+		'glyph'    => 'heart',
+		'title'    => 'What Does Your Love Future Hold?',
+		'meta_title' => 'Free Love Psychic Test — What Is Your Love Future? | Psychic Test',
+		'meta_desc'  => 'Take the free love psychic test to reveal the theme of your next chapter in love — reunion, a new beginning, self-love or patience — and connect with a love reader.',
+		'eyebrow'  => 'Free · 6 questions · 3 minutes',
+		'lede'     => 'Six honest questions to name the pattern your heart is moving through — and the guidance that fits it.',
+		'engine'   => 'quiz',
+		'mode'     => 'archetype',
+		'questions' => array(
+			array( 'id' => 'q1', 'prompt' => 'Where is your heart *right now?*', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Missing someone from my past', 'tags' => array( 'reunion' => 2 ) ), array( 'label' => 'Ready for something new', 'tags' => array( 'newchapter' => 2 ) ), array( 'label' => 'Learning to love myself first', 'tags' => array( 'selflove' => 2 ) ), array( 'label' => 'Waiting on someone unsure', 'tags' => array( 'patience' => 2 ) ),
+			) ),
+			array( 'id' => 'q2', 'prompt' => 'What keeps circling in your mind at night?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => '"Will they come back?"', 'tags' => array( 'reunion' => 2 ) ), array( 'label' => '"Where do I meet the right person?"', 'tags' => array( 'newchapter' => 2 ) ), array( 'label' => '"Why do I keep choosing the same type?"', 'tags' => array( 'selflove' => 2 ) ), array( 'label' => '"Is this going anywhere?"', 'tags' => array( 'patience' => 2 ) ),
+			) ),
+			array( 'id' => 'q3', 'prompt' => 'When you picture being happy in love, you see…', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'A door reopening', 'tags' => array( 'reunion' => 1 ) ), array( 'label' => 'A stranger who becomes home', 'tags' => array( 'newchapter' => 1 ) ), array( 'label' => 'Feeling whole on my own', 'tags' => array( 'selflove' => 1 ) ), array( 'label' => 'Clarity, finally', 'tags' => array( 'patience' => 1 ) ),
+			) ),
+			array( 'id' => 'q4', 'prompt' => 'What\'s the hardest part of love for you lately?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Letting go', 'tags' => array( 'reunion' => 2 ) ), array( 'label' => 'Putting myself out there', 'tags' => array( 'newchapter' => 2 ) ), array( 'label' => 'Believing I deserve it', 'tags' => array( 'selflove' => 2 ) ), array( 'label' => 'Not knowing where I stand', 'tags' => array( 'patience' => 2 ) ),
+			) ),
+			array( 'id' => 'q5', 'prompt' => 'What would help you most right now?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'To know if reconciliation is possible', 'tags' => array( 'reunion' => 2 ) ), array( 'label' => 'A sense of when love arrives', 'tags' => array( 'newchapter' => 2 ) ), array( 'label' => 'To heal an old pattern', 'tags' => array( 'selflove' => 2 ) ), array( 'label' => "To read the other person's true feelings", 'tags' => array( 'patience' => 2 ) ),
+			) ),
+			array( 'id' => 'q6', 'prompt' => 'How ready do you feel to hear the honest answer?', 'sub' => '', 'type' => 'scale' ),
+		),
+		'results'  => array(
+			'reunion'    => array( 'name' => 'A Reunion Theme', 'kicker' => 'Something unfinished is still alive', 'body' => array( 'Your heart is turned toward someone from your past. Whether that door reopens or finally closes, there is real unfinished energy here — and clarity will free you either way.', 'A love-focused reader can look at the connection honestly: is this a true reunion, or a lesson asking to be released?' ), 'traits' => array( 'Theme' => 'Reunion', 'You need' => 'Clarity', 'Reader fit' => 'Love reader' ), 'cats' => array( 'reunion', 'love' ) ),
+			'newchapter' => array( 'name' => 'A New Chapter', 'kicker' => 'Fresh love is on its way in', 'body' => array( 'You\'re standing at the start of something. The energy around you is opening, not closing — but timing and self-trust are the questions. Where, when, and how to recognise it when it arrives.', 'A reader can read the timing and the type of person moving toward you, so you meet it with open eyes.' ), 'traits' => array( 'Theme' => 'New love', 'You need' => 'Timing', 'Reader fit' => 'Love / Astrology' ), 'cats' => array( 'newchapter', 'love' ) ),
+			'selflove'   => array( 'name' => 'A Season of Self-Love', 'kicker' => 'The relationship to heal first is with you', 'body' => array( 'A pattern keeps repeating, and the deepest guidance points inward before outward. This isn\'t a consolation prize — it\'s the chapter that changes every chapter after it.', 'A compassionate reader can help you see the pattern clearly and the love that becomes possible once it shifts.' ), 'traits' => array( 'Theme' => 'Healing', 'You need' => 'Insight', 'Reader fit' => 'Empath reader' ), 'cats' => array( 'selflove', 'empath' ) ),
+			'patience'   => array( 'name' => 'A Test of Patience', 'kicker' => 'You\'re waiting on an unclear connection', 'body' => array( 'You\'re in the hardest place in love — the not-knowing. Someone\'s intentions are unclear, and the uncertainty is louder than the situation deserves. You need to read what\'s really there.', 'A reader can tune into the other person\'s true feelings and intentions, so you can stop guessing and decide.' ), 'traits' => array( 'Theme' => 'Uncertainty', 'You need' => 'Their truth', 'Reader fit' => 'Love reader' ), 'cats' => array( 'patience', 'love' ) ),
+		),
+	);
+
+	/* 10 — Spirit guide — archetype */
+	$tests['spirit-guide-test'] = array(
+		'nav'      => 'Spirit Guide',
+		'card'     => 'Who Is Your Spirit Guide?',
+		'blurb'    => 'You are not walking alone. Discover the kind of guide whose energy has been with you.',
+		'tag'      => '6 questions · 3 min',
+		'glyph'    => 'moon',
+		'title'    => 'Who Is Your Spirit Guide?',
+		'meta_title' => 'Free Spirit Guide Test — Who Is Your Guide? | Psychic Test',
+		'meta_desc'  => 'Take the free spirit guide test to reveal the type of guide walking with you — ancestor, animal guide, teacher or guardian — and meet a reader who can introduce you.',
+		'eyebrow'  => 'Free · 6 questions · 3 minutes',
+		'lede'     => 'Answer from the heart to reveal the guide whose presence has been quietly steering your path.',
+		'engine'   => 'quiz',
+		'mode'     => 'archetype',
+		'questions' => array(
+			array( 'id' => 'q1', 'prompt' => 'When you need strength, what do you reach for?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'The memory of family who came before', 'tags' => array( 'ancestor' => 2 ) ), array( 'label' => 'Being in nature', 'tags' => array( 'animal' => 2 ) ), array( 'label' => 'Books, wisdom, teachers', 'tags' => array( 'teacher' => 2 ) ), array( 'label' => 'A sense of being watched over', 'tags' => array( 'guardian' => 2 ) ),
+			) ),
+			array( 'id' => 'q2', 'prompt' => 'Which sign would move you most?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'A familiar scent or old song', 'tags' => array( 'ancestor' => 2 ) ), array( 'label' => 'The same animal appearing again', 'tags' => array( 'animal' => 2 ) ), array( 'label' => 'The perfect words at the right time', 'tags' => array( 'teacher' => 2 ) ), array( 'label' => 'A near-miss you can\'t explain', 'tags' => array( 'guardian' => 2 ) ),
+			) ),
+			array( 'id' => 'q3', 'prompt' => 'People say you are…', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Rooted in where I come from', 'tags' => array( 'ancestor' => 1 ) ), array( 'label' => 'Wild-hearted and instinctive', 'tags' => array( 'animal' => 1 ) ), array( 'label' => 'A seeker of meaning', 'tags' => array( 'teacher' => 1 ) ), array( 'label' => 'Protected — I land on my feet', 'tags' => array( 'guardian' => 1 ) ),
+			) ),
+			array( 'id' => 'q4', 'prompt' => 'What kind of guidance do you long for?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'To feel my loved ones near', 'tags' => array( 'ancestor' => 2 ) ), array( 'label' => 'To trust my instincts', 'tags' => array( 'animal' => 2 ) ), array( 'label' => 'To understand my purpose', 'tags' => array( 'teacher' => 2 ) ), array( 'label' => 'To feel safe on my path', 'tags' => array( 'guardian' => 2 ) ),
+			) ),
+			array( 'id' => 'q5', 'prompt' => 'Which place calls to your soul?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'An old family home', 'tags' => array( 'ancestor' => 1 ) ), array( 'label' => 'A deep forest', 'tags' => array( 'animal' => 1 ) ), array( 'label' => 'An ancient temple or library', 'tags' => array( 'teacher' => 1 ) ), array( 'label' => 'A high, quiet mountain', 'tags' => array( 'guardian' => 1 ) ),
+			) ),
+			array( 'id' => 'q6', 'prompt' => 'How strongly do you sense you\'re being guided?', 'sub' => '', 'type' => 'scale' ),
+		),
+		'results'  => array(
+			'ancestor' => array( 'name' => 'An Ancestral Guide', 'kicker' => 'Family who came before walks with you', 'body' => array( 'Your guide is ancestral — a grandparent, a bloodline, those who loved you into being. Their presence shows up in familiar scents, old songs and a deep sense of belonging. They offer roots and reassurance.', 'A medium can help you feel and hear them clearly — many people find their first spirit contact is a relative reaching back.' ), 'traits' => array( 'Guide' => 'Ancestor', 'Gift' => 'Belonging', 'Reader fit' => 'Mediumship' ), 'cats' => array( 'ancestor', 'mediumship' ) ),
+			'animal'   => array( 'name' => 'An Animal Guide', 'kicker' => 'An instinctive spirit walks beside you', 'body' => array( 'Your guide comes in animal form — appearing in life, dreams and symbols to return you to your instincts. It teaches you to trust the wild, wordless knowing you sometimes override.', 'A reader can help you recognise your guide and read the messages it keeps sending.' ), 'traits' => array( 'Guide' => 'Animal', 'Gift' => 'Instinct', 'Reader fit' => 'Intuitive' ), 'cats' => array( 'animal', 'intuition' ) ),
+			'teacher'  => array( 'name' => 'An Ascended Teacher', 'kicker' => 'A wise guide shapes your path', 'body' => array( 'Your guide is a teacher — a wise, elevated presence that arranges the right book, the right words, the right lesson exactly when you need them. Your path is one of growth and meaning.', 'An astrologer or spiritual reader can help you understand the lesson your guide is steering you toward now.' ), 'traits' => array( 'Guide' => 'Teacher', 'Gift' => 'Purpose', 'Reader fit' => 'Astrology' ), 'cats' => array( 'teacher', 'astrology' ) ),
+			'guardian' => array( 'name' => 'A Guardian Guide', 'kicker' => 'A protector keeps you safe', 'body' => array( 'Your guide is a guardian — the presence behind your lucky escapes and the feeling of being watched over. It offers protection and courage, especially when you\'re afraid to move forward.', 'A reader can help you feel your guardian\'s presence deliberately and lean on it when the path feels uncertain.' ), 'traits' => array( 'Guide' => 'Guardian', 'Gift' => 'Protection', 'Reader fit' => 'Energy' ), 'cats' => array( 'guardian', 'energy' ) ),
+		),
+	);
+
+	/* 11 — Which reading is right for you (the original "Inner Compass" quiz) — archetype */
+	$tests['take-the-test'] = array(
+		'nav'      => 'Which Reading',
+		'card'     => 'Which Psychic Reading Is Right for You?',
+		'blurb'    => 'Tarot, mediumship, astrology or energy work? Find the kind of reading that will actually land for you.',
+		'tag'      => '7 questions · 2 min',
+		'glyph'    => 'compass',
+		'title'    => 'Which Psychic Reading Is Right for You?',
+		'meta_title' => 'Which Psychic Reading Is Right for You? Free Test | Psychic Test',
+		'meta_desc'  => 'Not sure which kind of psychic reading to book? Take the free test to match your situation to tarot, mediumship, astrology or energy work — and the right reader.',
+		'eyebrow'  => 'Free · 7 questions · 2 minutes',
+		'lede'     => 'Seven thoughtful questions to match what you\'re carrying with the reading — and reader — that fits it best.',
+		'engine'   => 'quiz',
+		'mode'     => 'archetype',
+		'questions' => array(
+			array( 'id' => 'q1', 'prompt' => 'What are you carrying with you today?', 'sub' => "There's no wrong answer.", 'type' => 'choice', 'options' => array(
+				array( 'label' => 'A question about a relationship', 'tags' => array( 'love' => 2 ) ),
+				array( 'label' => 'A choice about work or direction', 'tags' => array( 'career' => 2 ) ),
+				array( 'label' => 'Grief, or connection with someone I miss', 'tags' => array( 'grief' => 2 ) ),
+				array( 'label' => "Curiosity about what's coming", 'tags' => array( 'future' => 2 ) ),
+			) ),
+			array( 'id' => 'q2', 'prompt' => 'When something matters, how do you usually *decide?*', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'I think it through, step by step', 'tags' => array( 'career' => 1, 'future' => 1 ) ),
+				array( 'label' => 'I listen to my gut', 'tags' => array( 'love' => 1, 'future' => 1 ) ),
+				array( 'label' => 'I talk it out with people I trust', 'tags' => array( 'love' => 1 ) ),
+				array( 'label' => 'I wait for something to become clear', 'tags' => array( 'grief' => 1, 'future' => 1 ) ),
+			) ),
+			array( 'id' => 'q3', 'prompt' => 'Which would help you most right now?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Insight into someone else\'s feelings', 'tags' => array( 'love' => 2 ) ),
+				array( 'label' => 'A clearer view of the road ahead', 'tags' => array( 'career' => 2 ) ),
+				array( 'label' => 'A message of comfort or closure', 'tags' => array( 'grief' => 2 ) ),
+				array( 'label' => 'The bigger pattern of my life', 'tags' => array( 'future' => 2 ) ),
+			) ),
+			array( 'id' => 'q4', 'prompt' => 'Which idea appeals to you most?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Cards that mirror my situation', 'tags' => array( 'love' => 1, 'career' => 1 ) ),
+				array( 'label' => 'Connecting with someone who passed', 'tags' => array( 'grief' => 2 ) ),
+				array( 'label' => 'My chart and the timing of things', 'tags' => array( 'future' => 2 ) ),
+				array( 'label' => 'Reading the energy around me', 'tags' => array( 'love' => 1, 'grief' => 1 ) ),
+			) ),
+			array( 'id' => 'q5', 'prompt' => 'How open are you to a message you weren\'t expecting?', 'sub' => 'A good reading sometimes surprises you.', 'type' => 'scale' ),
+			array( 'id' => 'q6', 'prompt' => 'Have you had a reading before?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'No — this would be my first', 'tags' => array( 'future' => 1 ) ),
+				array( 'label' => 'Once or twice', 'tags' => array( 'love' => 1 ) ),
+				array( 'label' => 'Occasionally', 'tags' => array( 'career' => 1 ) ),
+				array( 'label' => 'Yes, regularly', 'tags' => array( 'grief' => 1 ) ),
+			) ),
+			array( 'id' => 'q7', 'prompt' => 'If something were true, when would you want to know?', 'sub' => '', 'type' => 'choice', 'options' => array(
+				array( 'label' => 'Immediately — even if it\'s hard', 'tags' => array( 'career' => 1 ) ),
+				array( 'label' => 'Gently, when I\'m ready', 'tags' => array( 'grief' => 1 ) ),
+				array( 'label' => 'When I can act on it', 'tags' => array( 'love' => 1 ) ),
+				array( 'label' => 'As part of the whole picture', 'tags' => array( 'future' => 1 ) ),
+			) ),
+		),
+		'results'  => array(
+			'love'   => array( 'name' => 'A Love & Relationship Reading', 'kicker' => 'Cards and intuition, focused on the heart', 'body' => array( 'What you\'re carrying is relational — and the reading that fits is a love-focused tarot or intuitive session. It can reflect the connection back to you, read the other person\'s energy, and show the likely path.', 'A love reader is your match. Bring one real question and you\'ll leave with a clearer heart.' ), 'traits' => array( 'Best reading' => 'Love / Tarot', 'Format' => 'Chat or call', 'Reader fit' => 'Love reader' ), 'cats' => array( 'love', 'tarot' ) ),
+			'career' => array( 'name' => 'A Guidance & Decision Reading', 'kicker' => 'Grounded, practical, forward-looking', 'body' => array( 'You\'re holding a decision, and what serves you is a clear, practical reading — tarot or intuitive guidance aimed at the road ahead. Not theatrics; another angle on a choice you\'re close to.', 'A grounded intuitive reader is the right fit. Come with the decision and you\'ll leave with clarity.' ), 'traits' => array( 'Best reading' => 'Guidance', 'Format' => 'Voice call', 'Reader fit' => 'Intuitive' ), 'cats' => array( 'career', 'intuition' ) ),
+			'grief'  => array( 'name' => 'A Mediumship Reading', 'kicker' => 'Gentle connection and comfort', 'body' => array( 'What you\'re carrying is tender — a loss, a longing to reconnect. The reading that meets you here is mediumship, offered slowly and with care. It\'s less about information and more about presence and closure.', 'An experienced medium is your fit. There\'s no rush; you\'ll be met exactly where you are.' ), 'traits' => array( 'Best reading' => 'Mediumship', 'Format' => 'Long session', 'Reader fit' => 'Mediumship' ), 'cats' => array( 'grief', 'mediumship' ) ),
+			'future' => array( 'name' => 'An Astrology & Life-Path Reading', 'kicker' => 'The bigger pattern and its timing', 'body' => array( 'Your curiosity is about the whole picture — patterns, cycles and timing. The reading that fits is astrology or a life-path session that zooms out and shows how the pieces connect.', 'An astrologer is your match. Bring your birth details and you\'ll see the shape of what\'s unfolding.' ), 'traits' => array( 'Best reading' => 'Astrology', 'Format' => 'Long session', 'Reader fit' => 'Astrology' ), 'cats' => array( 'future', 'astrology' ) ),
+		),
+	);
+
+	return $tests;
+}
+
+/** Look up specialists whose categories match any of $cats, best matches first. Returns up to $limit. */
+function ptc_match_specialists( $cats, $limit = 2 ) {
+	$cats = (array) $cats;
+	$scored = array();
+	foreach ( ptc_specialists() as $s ) {
+		$overlap = count( array_intersect( $cats, $s['cats'] ) );
+		if ( $overlap > 0 ) {
+			$s['_score'] = $overlap;
+			$scored[] = $s;
+		}
+	}
+	usort( $scored, function ( $a, $b ) { return $b['_score'] - $a['_score']; } );
+	if ( count( $scored ) < $limit ) {
+		// pad with any specialists not already included
+		foreach ( ptc_specialists() as $s ) {
+			$have = false;
+			foreach ( $scored as $x ) { if ( $x['id'] === $s['id'] ) { $have = true; break; } }
+			if ( ! $have ) { $scored[] = $s; }
+			if ( count( $scored ) >= $limit ) break;
+		}
+	}
+	return array_slice( $scored, 0, $limit );
+}
